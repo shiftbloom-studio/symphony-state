@@ -13,15 +13,16 @@ export default defineConfig([
   {
     ...shared,
     entry: {
-      index: "src/index.ts"
+      index: "src/index.ts",
+      react: "src/react/index.ts",
+      devtools: "src/devtools/index.ts",
+      "adapters/atom": "src/adapters/atom.ts",
+      "adapters/external": "src/adapters/external.ts",
+      "adapters/url": "src/adapters/url.ts",
+      "adapters/zustand": "src/adapters/zustand.ts",
+      "adapters/redux": "src/adapters/redux.ts",
+      "adapters/query": "src/adapters/query.ts"
     },
     clean: true
-  },
-  {
-    ...shared,
-    entry: {
-      server: "src/server.ts"
-    },
-    clean: false
   }
 ]);
