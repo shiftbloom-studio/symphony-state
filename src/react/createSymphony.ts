@@ -45,8 +45,8 @@ export const createSymphony = <
   config: CreateSymphonyConfig<Sections>
 ): SymphonyInstance<Sections> => {
   const sectionEntries = Object.values(config.sections);
-  const sections: SectionDefinition<unknown>[] = [];
-  const derived: DerivedSectionDefinition<unknown>[] = [];
+  const sections: SectionDefinition<any>[] = [];
+  const derived: DerivedSectionDefinition<any>[] = [];
 
   for (const entry of sectionEntries) {
     if ("source" in entry) {
