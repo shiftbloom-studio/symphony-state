@@ -29,7 +29,7 @@ export type SectionDefinition<T> = {
 export type DerivedSectionDefinition<T> = {
   key: string;
   inputs: string[];
-  compute: (...values: unknown[]) => T;
+  compute: (...values: any[]) => T;
   debugLabel?: string;
 };
 
