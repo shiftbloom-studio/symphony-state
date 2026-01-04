@@ -264,29 +264,55 @@ export const createConductor = (config: ConductorConfig): Conductor => {
     stagedChanges.add(key);
   };
 
-  const applyUpdate = (state: SectionState<unknown>, update: Update) => {
+  const applyUpdate = (state: SectionState<unknown>, update: Update): boolean => {
     if (update.type === "set") {
+      if (Object.is(state.value, update.value)) {
+        return false;
+      }
       state.adapter?.set(update.value);
       state.value = update.value;
-    } else {
-      if (state.adapter?.patch) {
-        state.adapter.patch(update.value as Partial<unknown>);
-        if (isObject(state.value)) {
-          state.value = { ...state.value, ...update.value };
-        } else {
-          state.value = update.value as unknown;
-        }
-      } else if (isObject(state.value) && isObject(update.value)) {
-        const next = { ...state.value, ...update.value };
-        state.adapter?.set(next);
-        state.value = next;
-      } else {
-        throw new Error(
-          `Section "${state.key}" does not support patch updates.`
-        );
-      }
+      return true;
     }
-    persistValue(state, state.value);
+
+    if (state.adapter?.patch) {
+      if (isObject(state.value) && isObject(update.value)) {
+        const next = { ...state.value, ...update.value };
+        const changed = Object.keys(update.value).some(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (k) => !Object.is((state.value as any)[k], (update.value as any)[k])
+        );
+
+        if (!changed) {
+          return false;
+        }
+
+        state.adapter.patch(update.value as Partial<unknown>);
+        state.value = next;
+        return true;
+      }
+
+      state.adapter.patch(update.value as Partial<unknown>);
+      state.value = update.value;
+      return true;
+    }
+
+    if (isObject(state.value) && isObject(update.value)) {
+      const next = { ...state.value, ...update.value };
+      const changed = Object.keys(update.value).some(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (k) => !Object.is((state.value as any)[k], (update.value as any)[k])
+      );
+
+      if (!changed) {
+        return false;
+      }
+
+      state.adapter?.set(next);
+      state.value = next;
+      return true;
+    }
+
+    throw new Error(`Section "${state.key}" does not support patch updates.`);
   };
 
   const computeDerived = (state: SectionState<unknown>) => {
@@ -361,9 +387,12 @@ export const createConductor = (config: ConductorConfig): Conductor => {
       }
       const update = updates.get(key);
       if (update && !state.derived) {
-        applyUpdate(state, update);
+        const changed = applyUpdate(state, update);
+        if (changed) {
+          persistValue(state, state.value);
+          changedKeys.push(key);
+        }
         updates.delete(key);
-        changedKeys.push(key);
       }
       if (state.derived) {
         const derivedChanged = computeDerived(state);
