@@ -1,6 +1,8 @@
 import type { SourceAdapter, Subscriber, Unsubscribe } from "../core/types";
 
-export type AtomAdapter<T> = SourceAdapter<T>;
+export type AtomAdapter<T> = SourceAdapter<T> & {
+  patch: (partial: Partial<T>) => void;
+};
 
 export const createAtomAdapter = <T>(initial: T): AtomAdapter<T> => {
   let current = initial;

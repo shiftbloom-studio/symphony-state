@@ -118,8 +118,8 @@ const resolveStorage = <T,>(persist?: PersistConfig<T>): PersistConfig<T> | unde
 };
 
 export type ConductorConfig = {
-  sections: SectionDefinition<unknown>[];
-  derived?: DerivedSectionDefinition<unknown>[];
+  sections: SectionDefinition<any>[];
+  derived?: DerivedSectionDefinition<any>[];
   scheduler?: Scheduler;
   bootstrap?: Record<string, unknown> | (() => Record<string, unknown> | undefined);
   transactionHistoryLimit?: number;
@@ -227,14 +227,6 @@ export const createConductor = (config: ConductorConfig): Conductor => {
     }
   }
 
-  for (const key of order) {
-    const state = sections.get(key);
-    if (!state?.derived) {
-      continue;
-    }
-    computeDerived(state);
-  }
-
   const stagedChanges = new Set<string>();
   const pendingNotifications = new Set<string>();
   let scheduled = false;
@@ -318,6 +310,14 @@ export const createConductor = (config: ConductorConfig): Conductor => {
     state.derived.lastInputs = inputs;
     return changed;
   };
+
+  for (const key of order) {
+    const state = sections.get(key);
+    if (!state?.derived) {
+      continue;
+    }
+    computeDerived(state);
+  }
 
   const runEffects = (changedKeys: string[]) => {
     if (effects.size === 0) {
