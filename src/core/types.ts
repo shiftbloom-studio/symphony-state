@@ -29,6 +29,7 @@ export type SectionDefinition<T> = {
 export type DerivedSectionDefinition<T> = {
   key: string;
   inputs: string[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   compute: (...values: any[]) => T;
   debugLabel?: string;
 };

@@ -45,7 +45,9 @@ export const createSymphony = <
   config: CreateSymphonyConfig<Sections>
 ): SymphonyInstance<Sections> => {
   const sectionEntries = Object.values(config.sections);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const sections: SectionDefinition<any>[] = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const derived: DerivedSectionDefinition<any>[] = [];
 
   for (const entry of sectionEntries) {
