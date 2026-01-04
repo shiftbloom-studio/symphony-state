@@ -1,8 +1,8 @@
 # Symphony State
 
-[![npm](https://img.shields.io/npm/v/symphony-state)](https://www.npmjs.com/package/symphony-state)
-[![CI](https://img.shields.io/github/actions/workflow/status/symphony-state/symphony-state/ci.yml)](https://github.com/symphony-state/symphony-state/actions/workflows/ci.yml)
-[![license](https://img.shields.io/npm/l/symphony-state)](LICENSE)
+[![npm](https://img.shields.io/npm/v/@shiftbloom-studio/symphony-state)](https://www.npmjs.com/package/@shiftbloom-studio/symphony-state)
+[![CI](https://img.shields.io/github/actions/workflow/status/shiftbloom-studio/symphony-state/ci.yml)](https://github.com/shiftbloom-studio/symphony-state/actions/workflows/ci.yml)
+[![license](https://img.shields.io/npm/l/@shiftbloom-studio/symphony-state)](LICENSE)
 
 **Orchestrate multiple state sources without a monolithic global store.**
 
@@ -19,7 +19,7 @@ Symphony State provides an orchestration layer that schedules updates in a singl
 ## Installation
 
 ```bash
-npm install symphony-state
+npm install @shiftbloom-studio/symphony-state
 ```
 
 ## Quickstart (AtomAdapter)
@@ -29,8 +29,8 @@ import {
   createConductor,
   defineSection,
   createAtomAdapter
-} from "symphony-state";
-import { SymphonyProvider, useSection } from "symphony-state/react";
+} from "@shiftbloom-studio/symphony-state";
+import { SymphonyProvider, useSection } from "@shiftbloom-studio/symphony-state/react";
 
 const auth = defineSection({
   key: "auth",
@@ -60,8 +60,8 @@ export function App() {
 ## Quickstart (Zustand + Redux adapters)
 
 ```ts
-import { createZustandAdapter } from "symphony-state/adapters/zustand";
-import { createReduxAdapter } from "symphony-state/adapters/redux";
+import { createZustandAdapter } from "@shiftbloom-studio/symphony-state/adapters/zustand";
+import { createReduxAdapter } from "@shiftbloom-studio/symphony-state/adapters/redux";
 
 const zustandSection = defineSection({
   key: "filters",
@@ -92,7 +92,7 @@ All section updates are staged, resolved in dependency order, committed atomical
 ## Derived sections
 
 ```ts
-import { defineDerivedSection } from "symphony-state";
+import { defineDerivedSection } from "@shiftbloom-studio/symphony-state";
 
 const pricing = defineDerivedSection({
   key: "pricing",
@@ -112,7 +112,7 @@ Derived sections are read-only and recompute only when their inputs change.
 ```tsx
 // app/layout.tsx
 "use client";
-import { SymphonyProvider } from "symphony-state/react";
+import { SymphonyProvider } from "@shiftbloom-studio/symphony-state/react";
 import { conductor } from "./symphony";
 
 export default function RootLayout({ children }) {
@@ -124,7 +124,7 @@ export default function RootLayout({ children }) {
 
 ```tsx
 // pages/_app.tsx
-import { SymphonyProvider } from "symphony-state/react";
+import { SymphonyProvider } from "@shiftbloom-studio/symphony-state/react";
 import { conductor } from "../symphony";
 
 export default function App({ Component, pageProps }) {
@@ -139,15 +139,15 @@ export default function App({ Component, pageProps }) {
 ### Hydration helper
 
 ```tsx
-import { SymphonyScript } from "symphony-state/react";
+import { SymphonyScript } from "@shiftbloom-studio/symphony-state/react";
 
-<SymphonyScript state={{ auth: { userId: "42" } }} />
+<SymphonyScript state={{ auth: { userId: "42" } }} />;
 ```
 
 ## Persistence
 
 ```ts
-import { createStorageSink } from "symphony-state";
+import { createStorageSink } from "@shiftbloom-studio/symphony-state";
 
 const auth = defineSection({
   key: "auth",
@@ -162,29 +162,29 @@ const auth = defineSection({
 ## DevTools (optional)
 
 ```tsx
-import { SymphonyDevTools } from "symphony-state/devtools";
+import { SymphonyDevTools } from "@shiftbloom-studio/symphony-state/devtools";
 
-<SymphonyDevTools maxTransactions={10} />
+<SymphonyDevTools maxTransactions={10} />;
 ```
 
 DevTools are dev-only, tree-shakeable, and unstyled apart from minimal CSS variables.
 
 ## API Reference
 
-| API | Description |
-| --- | --- |
-| `createConductor(config)` | Create a conductor instance. |
-| `defineSection(def)` | Define a section backed by a source adapter. |
-| `defineDerivedSection(def)` | Define a derived, read-only section. |
-| `createAtomAdapter(initial)` | Built-in minimal store. |
-| `createExternalStoreAdapter(store)` | Wrap an external get/set/subscribe store. |
-| `createUrlParamsAdapter(options)` | Sync with URL search params. |
-| `createStorageSink(options)` | Persist section values to storage. |
-| `SymphonyProvider` | React context provider. |
-| `useSection(key)` | React hook for section read/write. |
-| `useSelector(key, selector)` | Selector hook with equality. |
-| `createSymphony(config)` | Typed helper that wires a conductor and hooks. |
-| `SymphonyDevTools` | Optional devtools panel. |
+| API                                 | Description                                    |
+| ----------------------------------- | ---------------------------------------------- |
+| `createConductor(config)`           | Create a conductor instance.                   |
+| `defineSection(def)`                | Define a section backed by a source adapter.   |
+| `defineDerivedSection(def)`         | Define a derived, read-only section.           |
+| `createAtomAdapter(initial)`        | Built-in minimal store.                        |
+| `createExternalStoreAdapter(store)` | Wrap an external get/set/subscribe store.      |
+| `createUrlParamsAdapter(options)`   | Sync with URL search params.                   |
+| `createStorageSink(options)`        | Persist section values to storage.             |
+| `SymphonyProvider`                  | React context provider.                        |
+| `useSection(key)`                   | React hook for section read/write.             |
+| `useSelector(key, selector)`        | Selector hook with equality.                   |
+| `createSymphony(config)`            | Typed helper that wires a conductor and hooks. |
+| `SymphonyDevTools`                  | Optional devtools panel.                       |
 
 ## Design principles
 
