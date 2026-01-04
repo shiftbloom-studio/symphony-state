@@ -1,15 +1,15 @@
 {
-  "name": "@your-scope/your-package",
+  "name": "symphony-state",
   "version": "0.0.0",
-  "description": "TODO: describe your package",
-  "keywords": [],
-  "homepage": "https://github.com/your-org/your-repo#readme",
+  "description": "Orchestrate multiple state sources without a monolithic global store.",
+  "keywords": ["react", "nextjs", "state", "orchestration"],
+  "homepage": "https://github.com/symphony-state/symphony-state#readme",
   "bugs": {
-    "url": "https://github.com/your-org/your-repo/issues"
+    "url": "https://github.com/symphony-state/symphony-state/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-org/your-repo.git"
+    "url": "git+https://github.com/symphony-state/symphony-state.git"
   },
   "license": "MIT",
   "author": "",
@@ -29,10 +29,45 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./server": {
-      "types": "./dist/server.d.ts",
-      "import": "./dist/server.js",
-      "require": "./dist/server.cjs"
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js",
+      "require": "./dist/react.cjs"
+    },
+    "./devtools": {
+      "types": "./dist/devtools.d.ts",
+      "import": "./dist/devtools.js",
+      "require": "./dist/devtools.cjs"
+    },
+    "./adapters/atom": {
+      "types": "./dist/adapters/atom.d.ts",
+      "import": "./dist/adapters/atom.js",
+      "require": "./dist/adapters/atom.cjs"
+    },
+    "./adapters/external": {
+      "types": "./dist/adapters/external.d.ts",
+      "import": "./dist/adapters/external.js",
+      "require": "./dist/adapters/external.cjs"
+    },
+    "./adapters/url": {
+      "types": "./dist/adapters/url.d.ts",
+      "import": "./dist/adapters/url.js",
+      "require": "./dist/adapters/url.cjs"
+    },
+    "./adapters/zustand": {
+      "types": "./dist/adapters/zustand.d.ts",
+      "import": "./dist/adapters/zustand.js",
+      "require": "./dist/adapters/zustand.cjs"
+    },
+    "./adapters/redux": {
+      "types": "./dist/adapters/redux.d.ts",
+      "import": "./dist/adapters/redux.js",
+      "require": "./dist/adapters/redux.cjs"
+    },
+    "./adapters/query": {
+      "types": "./dist/adapters/query.d.ts",
+      "import": "./dist/adapters/query.js",
+      "require": "./dist/adapters/query.cjs"
     }
   },
   "files": [
@@ -54,12 +89,27 @@
     "lint": "eslint . --ext .ts,.tsx --max-warnings=0",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18",
+    "zustand": ">=4",
+    "redux": ">=4",
+    "@tanstack/query-core": ">=4"
+  },
+  "peerDependenciesMeta": {
+    "zustand": {"optional": true},
+    "redux": {"optional": true},
+    "@tanstack/query-core": {"optional": true}
+  },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
     "@changesets/changelog-git": "^0.2.1",
     "@changesets/cli": "^2.28.1",
     "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.0.1",
     "@types/jest": "^30.0.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
     "@typescript-eslint/eslint-plugin": "^8.18.2",
     "@typescript-eslint/parser": "^8.18.2",
     "eslint": "^9.17.0",
@@ -68,6 +118,8 @@
     "jest": "^30.2.0",
     "jest-environment-jsdom": "^29.7.0",
     "prettier": "^3.4.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "ts-jest": "^29.2.5",
     "tsup": "^8.3.6",
     "typescript": "^5.7.3"
