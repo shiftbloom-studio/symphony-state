@@ -118,7 +118,9 @@ const resolveStorage = <T,>(persist?: PersistConfig<T>): PersistConfig<T> | unde
 };
 
 export type ConductorConfig = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sections: SectionDefinition<any>[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   derived?: DerivedSectionDefinition<any>[];
   scheduler?: Scheduler;
   bootstrap?: Record<string, unknown> | (() => Record<string, unknown> | undefined);
