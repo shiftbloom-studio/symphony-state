@@ -1,6 +1,6 @@
 {
   "name": "@shiftbloom-studio/symphony-state",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Orchestrate multiple state sources without a monolithic global store.",
   "keywords": ["react", "nextjs", "state", "orchestration"],
   "homepage": "https://github.com/shiftbloom-studio/symphony-state#readme",
