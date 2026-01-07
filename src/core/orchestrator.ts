@@ -47,6 +47,9 @@ const defaultReconcile = <T,>(context: ReconcileContext<T>): ResolutionState<T> 
   const winner = sorted[0];
   if (!winner) {
     const fallbackId = Object.keys(context.values)[0];
+    if (!fallbackId) {
+      throw new Error("Cannot reconcile: no instrument values available.");
+    }
     return {
       value: context.values[fallbackId],
       sourceId: fallbackId,
@@ -144,13 +147,13 @@ export const createOrchestratedAdapter = <T,>(
       config.instruments,
       config.optimisticPriority
     );
-    const initialValue = instruments.values().next().value?.value;
-    if (initialValue === undefined) {
-      throw new Error("Optimistic orchestration requires at least one instrument value.");
+    const firstInstrument = instruments.values().next().value;
+    if (!firstInstrument) {
+      throw new Error("Optimistic orchestration requires at least one instrument with a value.");
     }
     instruments.set(optimisticId, {
       id: optimisticId,
-      value: initialValue,
+      value: firstInstrument.value,
       updatedAt: 0,
       priority: optimisticPriority,
       kind: "optimistic",
@@ -214,7 +217,7 @@ export const createOrchestratedAdapter = <T,>(
       return;
     }
     const unsubscribe = instrument.source.subscribe(() => {
-      updateFromSource(instrument.id, instrument.source?.get() as T);
+      updateFromSource(instrument.id, instrument.source!.get());
     });
     subscriptions.push(unsubscribe);
   });
@@ -231,10 +234,23 @@ export const createOrchestratedAdapter = <T,>(
 
     if (config.writeTo) {
       const target = instruments.get(config.writeTo);
-      if (!target?.source) {
+      if (!target) {
         throw new Error(`Unknown write target "${config.writeTo}".`);
       }
-      target.source.set(next);
+      const source = target.source;
+      if (!source) {
+        throw new Error(
+          `Write target "${config.writeTo}" has no source configured.`
+        );
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if (typeof (source as any).set !== "function") {
+        throw new Error(
+          `Write target "${config.writeTo}" does not support write operations.`
+        );
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (source as any).set(next);
     }
 
     computeResolved("set");
@@ -242,15 +258,48 @@ export const createOrchestratedAdapter = <T,>(
   };
 
   const patch = (partial: Partial<T>) => {
-    if (isObject(partial)) {
-      const base = resolved?.value;
-      if (isObject(base)) {
-        const next = { ...base, ...partial } as T;
-        set(next);
-        return;
+    if (!isObject(partial)) {
+      throw new Error("Orchestrated adapter patch requires object values.");
+    }
+    const base = resolved?.value;
+    if (!isObject(base)) {
+      throw new Error("Orchestrated adapter patch requires object values.");
+    }
+    
+    const next = { ...base, ...partial } as T;
+    const previous = resolved?.value;
+    
+    if (config.optimistic) {
+      const optimistic = instruments.get(optimisticId);
+      if (optimistic) {
+        optimistic.value = next;
+        optimistic.updatedAt = now();
       }
     }
-    throw new Error("Orchestrated adapter patch requires object values.");
+
+    if (config.writeTo) {
+      const target = instruments.get(config.writeTo);
+      if (!target) {
+        throw new Error(`Unknown write target "${config.writeTo}".`);
+      }
+      const source = target.source;
+      if (!source) {
+        throw new Error(
+          `Write target "${config.writeTo}" has no source configured.`
+        );
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if (typeof (source as any).set !== "function") {
+        throw new Error(
+          `Write target "${config.writeTo}" does not support write operations.`
+        );
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (source as any).set(next);
+    }
+
+    computeResolved("patch");
+    notifyIfChanged(previous);
   };
 
   const get = () => {
