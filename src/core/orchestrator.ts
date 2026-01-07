@@ -78,11 +78,15 @@ const buildSnapshot = <T,>(
   });
 
   if (!resolved) {
-    const fallbackId = Object.keys(sources)[0];
-    const fallback = sources[fallbackId];
+    const sourceIds = Object.keys(sources);
+    if (sourceIds.length === 0) {
+      throw new Error("Cannot build snapshot: no sources available");
+    }
+    const fallbackId = sourceIds[0];
+    const fallback = sources[fallbackId]!;
     return {
-      value: fallback?.value as T,
-      driver: fallbackId ?? null,
+      value: fallback.value,
+      driver: fallbackId,
       sources
     };
   }
