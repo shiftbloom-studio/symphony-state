@@ -6,23 +6,33 @@
 
 **Orchestrate multiple state sources without a monolithic global store.**
 
-Symphony State coordinates local state, React Context, external stores (Zustand/Redux), server state libraries (TanStack Query/SWR), URL params, and browser persistence without taking ownership of those sources. It focuses on deterministic, dependency-driven propagation and atomic transactions so you can keep cross-domain state consistent.
+Symphony State is a lightweight orchestration layer that keeps server caches, UI state, and browser persistence in tempo. It does not replace your existing stores. Instead, it composes them into predictable, dependency-driven flows with atomic transactions, derived sections, and observable reconciliation.
+
+---
 
 ## Why Symphony State?
 
-- **Mixed sources drift**: local state, URL params, and external stores can diverge.
-- **Update storms**: independent updates trigger multiple re-renders.
-- **Cross-domain dependencies**: cart state depends on auth/pricing, etc.
+Modern apps blend server state (SWR/TanStack Query), local UI state, URL params, and client caches. Those sources drift, and race conditions appear.
 
-Symphony State provides an orchestration layer that schedules updates in a single wave and keeps dependencies consistent.
+Symphony State focuses on **coordination**:
 
-## Installation
+- **Orchestration, not ownership**: keep each state source independent.
+- **Deterministic updates**: staged commits resolve dependencies in a single wave.
+- **Smart reconciliation**: establish precedence between server, cache, and optimistic UI.
+- **Observability**: inspect which source is driving your UI at any time.
+- **Performance**: local updates notify only subscribers for touched sections.
+
+---
+
+## Install
 
 ```bash
 npm install @shiftbloom-studio/symphony-state
 ```
 
-## Quickstart (AtomAdapter)
+---
+
+## Quickstart (AtomAdapter + React)
 
 ```tsx
 import {
@@ -57,39 +67,66 @@ export function App() {
 }
 ```
 
-## Quickstart (Zustand + Redux adapters)
+---
+
+## The Conductor Pattern (multi-source orchestration)
+
+The **Conductor** stitches independent sources together. Use the orchestrated adapter to define a "symphony" of sources that resolves into a single view.
 
 ```ts
-import { createZustandAdapter } from "@shiftbloom-studio/symphony-state/adapters/zustand";
-import { createReduxAdapter } from "@shiftbloom-studio/symphony-state/adapters/redux";
+import {
+  createOrchestratedAdapter,
+  defineSection,
+  createAtomAdapter,
+  createExternalStoreAdapter
+} from "@shiftbloom-studio/symphony-state";
 
-const zustandSection = defineSection({
-  key: "filters",
-  source: createZustandAdapter(zustandStore)
-});
+const serverCache = createExternalStoreAdapter(serverCacheStore);
+const localDraft = createAtomAdapter({ title: "", body: "" });
 
-const reduxSection = defineSection({
-  key: "cart",
-  source: createReduxAdapter(reduxStore, {
-    select: (state) => state.cart,
-    update: (next) => ({ type: "cart/replace", payload: next }),
-    patch: (partial) => ({ type: "cart/patch", payload: partial })
+const postSection = defineSection({
+  key: "post",
+  source: createOrchestratedAdapter({
+    instruments: [
+      { id: "server", source: serverCache, priority: 1, role: "server" },
+      { id: "draft", source: localDraft, priority: 2, role: "optimistic" }
+    ],
+    writeTo: "draft",
+    optimistic: true,
+    staleAfterMs: 30_000
   })
 });
 ```
 
-## Transactions
+**Precedence** is decided by `priority` and `updatedAt`, with staleness protection. By default, the highest priority, freshest instrument wins. You can override reconciliation with a custom `reconcile` function.
+
+---
+
+## Smart Reconciliation
+
+When the server says **X** but the client says **Y**, Symphony State provides reconciliation hooks:
+
+- **Optimistic updates**: immediately update UI, then reconcile once server responds.
+- **Eventual consistency**: keep local drafts until authoritative data catches up.
+- **Custom policies**: write your own resolver to merge, prefer, or weight sources.
 
 ```ts
-conductor.transaction(() => {
-  conductor.getSection("auth").set({ userId: "42" });
-  conductor.getSection("cart").patch({ ownerId: "42" });
-}, "login");
+import type { ReconcileContext } from "@shiftbloom-studio/symphony-state";
+
+const reconcile = <T extends { version: number }>(ctx: ReconcileContext<T>) => {
+  const entries = Object.entries(ctx.values).map(([id, value]) => ({ id, value }));
+  const winner = entries.sort((a, b) => b.value.version - a.value.version)[0];
+  return {
+    value: winner.value,
+    sourceId: winner.id,
+    updatedAt: ctx.meta[winner.id].updatedAt
+  };
+};
 ```
 
-All section updates are staged, resolved in dependency order, committed atomically, and only then are subscribers notified.
+---
 
-## Derived sections
+## Derived Sections
 
 ```ts
 import { defineDerivedSection } from "@shiftbloom-studio/symphony-state";
@@ -105,7 +142,58 @@ const pricing = defineDerivedSection({
 
 Derived sections are read-only and recompute only when their inputs change.
 
-## Next.js patterns
+---
+
+## Transactions
+
+```ts
+conductor.transaction(() => {
+  conductor.getSection("auth").set({ userId: "42" });
+  conductor.getSection("cart").patch({ ownerId: "42" });
+}, "login");
+```
+
+All updates are staged, resolved in dependency order, and committed atomically.
+
+---
+
+## Persistence
+
+```ts
+import { createStorageSink } from "@shiftbloom-studio/symphony-state";
+
+const auth = defineSection({
+  key: "auth",
+  source: createAtomAdapter({ userId: null }),
+  persist: createStorageSink({
+    key: "symphony-auth",
+    throttleMs: 200
+  })
+});
+```
+
+---
+
+## DevTools & Observability
+
+Use the built-in devtools panel or access orchestration snapshots programmatically.
+
+```tsx
+import { SymphonyDevTools } from "@shiftbloom-studio/symphony-state/devtools";
+
+<SymphonyDevTools maxTransactions={10} />;
+```
+
+```ts
+const postAdapter = createOrchestratedAdapter({ /* instruments */ });
+const snapshot = postAdapter.getSnapshot();
+```
+
+`getSnapshot()` reports the active **driver** plus all instrument values, priorities, and staleness flags so you can see which source is in control.
+
+---
+
+## Next.js integration
 
 ### App Router
 
@@ -144,30 +232,7 @@ import { SymphonyScript } from "@shiftbloom-studio/symphony-state/react";
 <SymphonyScript state={{ auth: { userId: "42" } }} />;
 ```
 
-## Persistence
-
-```ts
-import { createStorageSink } from "@shiftbloom-studio/symphony-state";
-
-const auth = defineSection({
-  key: "auth",
-  source: createAtomAdapter({ userId: null }),
-  persist: createStorageSink({
-    key: "symphony-auth",
-    throttleMs: 200
-  })
-});
-```
-
-## DevTools (optional)
-
-```tsx
-import { SymphonyDevTools } from "@shiftbloom-studio/symphony-state/devtools";
-
-<SymphonyDevTools maxTransactions={10} />;
-```
-
-DevTools are dev-only, tree-shakeable, and unstyled apart from minimal CSS variables.
+---
 
 ## API Reference
 
@@ -176,6 +241,7 @@ DevTools are dev-only, tree-shakeable, and unstyled apart from minimal CSS varia
 | `createConductor(config)`           | Create a conductor instance.                   |
 | `defineSection(def)`                | Define a section backed by a source adapter.   |
 | `defineDerivedSection(def)`         | Define a derived, read-only section.           |
+| `createOrchestratedAdapter(config)` | Orchestrate multiple sources with precedence.  |
 | `createAtomAdapter(initial)`        | Built-in minimal store.                        |
 | `createExternalStoreAdapter(store)` | Wrap an external get/set/subscribe store.      |
 | `createUrlParamsAdapter(options)`   | Sync with URL search params.                   |
@@ -186,12 +252,16 @@ DevTools are dev-only, tree-shakeable, and unstyled apart from minimal CSS varia
 | `createSymphony(config)`            | Typed helper that wires a conductor and hooks. |
 | `SymphonyDevTools`                  | Optional devtools panel.                       |
 
-## Design principles
+---
 
-- **Orchestration, not ownership**: Symphony State coordinates existing stores.
-- **Predictable updates**: deterministic, dependency-ordered commit waves.
-- **Tree-shakeable**: optional adapters and devtools ship as separate entrypoints.
+## Design Principles
+
+- **Orchestration, not monolith**: state sources remain independent.
+- **Deterministic propagation**: dependency-ordered commit waves.
+- **Composable adapters**: plug in external stores without boilerplate.
 - **SSR-safe**: no unguarded `window` usage in core.
+
+---
 
 ## License
 
