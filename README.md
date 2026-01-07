@@ -88,12 +88,11 @@ const postSection = defineSection({
   key: "post",
   source: createOrchestratedAdapter({
     instruments: [
-      { id: "server", source: serverCache, priority: 1, role: "server" },
+      { id: "server", source: serverCache, priority: 1, role: "server", staleAfterMs: 30_000 },
       { id: "draft", source: localDraft, priority: 2, role: "optimistic" }
     ],
     writeTo: "draft",
-    optimistic: true,
-    staleAfterMs: 30_000
+    optimistic: true
   })
 });
 ```
@@ -123,6 +122,8 @@ const reconcile = <T extends { version: number }>(ctx: ReconcileContext<T>) => {
   };
 };
 ```
+
+> **Note**: This example assumes all values have a `version` property. In production code, add runtime checks or type guards to ensure type safety.
 
 ---
 
@@ -185,7 +186,20 @@ import { SymphonyDevTools } from "@shiftbloom-studio/symphony-state/devtools";
 ```
 
 ```ts
-const postAdapter = createOrchestratedAdapter({ /* instruments */ });
+// Keep a reference to your orchestrated adapter when wiring the section:
+const postAdapter = createOrchestratedAdapter({
+  instruments: [
+    { id: "server", source: serverCache, priority: 1, role: "server" },
+    { id: "draft", source: localDraft, priority: 2, role: "optimistic" }
+  ]
+});
+
+const posts = defineSection({
+  key: "posts",
+  source: postAdapter
+});
+
+// Later, inspect the current orchestration snapshot:
 const snapshot = postAdapter.getSnapshot();
 ```
 
