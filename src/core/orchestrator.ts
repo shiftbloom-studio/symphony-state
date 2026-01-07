@@ -140,9 +140,13 @@ export const createOrchestratedAdapter = <T,>(
       config.instruments,
       config.optimisticPriority
     );
+    const initialValue = instruments.values().next().value?.value;
+    if (initialValue === undefined) {
+      throw new Error("Optimistic orchestration requires at least one instrument value.");
+    }
     instruments.set(optimisticId, {
       id: optimisticId,
-      value: instruments.values().next().value.value,
+      value: initialValue,
       updatedAt: 0,
       priority: optimisticPriority,
       kind: "optimistic",
