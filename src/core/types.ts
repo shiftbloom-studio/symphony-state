@@ -10,6 +10,69 @@ export type SourceAdapter<T> = {
   destroy?: () => void;
 };
 
+export type InstrumentDefinition<T> = {
+  id: string;
+  source: SourceAdapter<T>;
+  priority?: number;
+  staleAfterMs?: number;
+  role?: "server" | "client" | "optimistic" | "cache" | "local";
+};
+
+export type InstrumentMeta = {
+  priority: number;
+  updatedAt: number;
+  stale: boolean;
+  kind: string;
+  role?: "server" | "client" | "optimistic" | "cache" | "local";
+};
+
+export type ResolutionState<T> = {
+  value: T;
+  sourceId: string;
+  updatedAt: number;
+};
+
+export type ReconcileContext<T> = {
+  values: Record<string, T>;
+  meta: Record<string, InstrumentMeta>;
+  lastResolved?: ResolutionState<T>;
+  reason: "init" | "source-update" | "set" | "patch";
+};
+
+export type ReconcileResult<T> = ResolutionState<T>;
+
+export type ReconcileFn<T> = (context: ReconcileContext<T>) => ReconcileResult<T>;
+
+export type OrchestratorSnapshot<T> = {
+  value: T;
+  driver: string | null;
+  sources: Record<
+    string,
+    {
+      value: T;
+      priority: number;
+      updatedAt: number;
+      stale: boolean;
+      kind: string;
+      role?: "server" | "client" | "optimistic" | "cache" | "local";
+    }
+  >;
+};
+
+export type OrchestratedAdapter<T> = SourceAdapter<T> & {
+  getSnapshot: () => OrchestratorSnapshot<T>;
+};
+
+export type OrchestratorConfig<T> = {
+  instruments: InstrumentDefinition<T>[];
+  reconcile?: ReconcileFn<T>;
+  writeTo?: string;
+  optimistic?: boolean;
+  optimisticSourceId?: string;
+  optimisticPriority?: number;
+  now?: () => number;
+};
+
 export type PersistConfig<T> = {
   key: string;
   storage?: Storage | null;

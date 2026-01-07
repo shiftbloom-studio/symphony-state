@@ -1,4 +1,5 @@
 export { createConductor } from "./core/conductor";
+export { createOrchestratedAdapter } from "./core/orchestrator";
 export {
   defineSection,
   defineDerivedSection,
@@ -9,7 +10,15 @@ export type {
   ConductorSnapshot,
   DerivedSectionDefinition,
   EffectDefinition,
+  InstrumentDefinition,
+  OrchestratedAdapter,
+  OrchestratorConfig,
+  OrchestratorSnapshot,
   PersistConfig,
+  ReconcileContext,
+  ReconcileFn,
+  ReconcileResult,
+  ResolutionState,
   Scheduler,
   SectionDefinition,
   SectionHandle,
