@@ -38,7 +38,7 @@ export const useSelector = <T, S>(
   equality: (a: S, b: S) => boolean = Object.is
 ) => {
   const conductor = useConductor();
-  const selectedRef = useRef<S>();
+  const selectedRef = useRef<S | undefined>(undefined);
 
   const getSnapshot = useCallback(() => {
     const value = conductor.getSectionValue<T>(key);
