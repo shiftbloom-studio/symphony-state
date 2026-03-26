@@ -41,6 +41,17 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+      {/* Footer */}
+      <footer className="border-t border-border py-8">
+        <div className="mx-auto max-w-5xl px-6 flex items-center justify-between text-xs text-text-muted">
+          <span>&copy; {new Date().getFullYear()} Fabian Zimber / shiftbloom studio</span>
+          <div className="flex items-center gap-4">
+            <Link href="/legal#impressum" className="hover:text-text-secondary">Impressum</Link>
+            <Link href="/legal#datenschutz" className="hover:text-text-secondary">Datenschutz</Link>
+          </div>
+        </div>
+      </footer>
     </>
   );
 }

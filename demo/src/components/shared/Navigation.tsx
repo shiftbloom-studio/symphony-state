@@ -41,6 +41,17 @@ export const Navigation = () => {
               </Link>
             );
           })}
+          <span className="mx-1 h-4 w-px bg-border" />
+          <Link
+            href="/legal"
+            className={`rounded-md px-2.5 py-1.5 text-xs transition-colors ${
+              pathname === "/legal"
+                ? "bg-surface-3 text-text-primary"
+                : "text-text-muted hover:text-text-secondary"
+            }`}
+          >
+            Impressum
+          </Link>
         </div>
       </div>
     </nav>
