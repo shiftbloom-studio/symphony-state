@@ -1,0 +1,29 @@
+{
+  "name": "symphony-state-demo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "bash scripts/link-lib.sh",
+    "dev": "next dev --port 3030",
+    "build": "next build",
+    "start": "next start --port 3030",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@shiftbloom-studio/symphony-state": "file:..",
+    "next": "^16.2.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.5",
+    "@tailwindcss/postcss": "^4.1.8",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^16.2.1",
+    "tailwindcss": "^4.1.8",
+    "typescript": "^5.8.3"
+  }
+}

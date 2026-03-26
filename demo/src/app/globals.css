@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  /* Light, clean surfaces */
+  --color-surface-0: #fafbfc;
+  --color-surface-1: #ffffff;
+  --color-surface-2: #f4f5f7;
+  --color-surface-3: #ebedf0;
+  --color-border: #e0e3e8;
+  --color-border-subtle: #ebedf0;
+  --color-text-primary: #1a1d23;
+  --color-text-secondary: #5a6070;
+  --color-text-muted: #8b90a0;
+
+  /* Softer, muted source colors */
+  --color-source-server: #4a7ccc;
+  --color-source-ui: #7c6cb5;
+  --color-source-url: #c4880d;
+  --color-source-persisted: #2f9e7a;
+  --color-source-optimistic: #cd5a8e;
+  --color-source-derived: #2d9bb5;
+
+  --color-accent: #5b63d3;
+  --color-accent-hover: #6e76e0;
+
+  --font-mono: "SF Mono", "Fira Code", "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--color-surface-0);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 25%, transparent);
+  color: var(--color-text-primary);
+}
+
+/* Source badge colors — soft tinted backgrounds */
+.badge-server { background: color-mix(in srgb, var(--color-source-server) 10%, white); color: var(--color-source-server); border-color: color-mix(in srgb, var(--color-source-server) 20%, transparent); }
+.badge-ui { background: color-mix(in srgb, var(--color-source-ui) 10%, white); color: var(--color-source-ui); border-color: color-mix(in srgb, var(--color-source-ui) 20%, transparent); }
+.badge-url { background: color-mix(in srgb, var(--color-source-url) 10%, white); color: var(--color-source-url); border-color: color-mix(in srgb, var(--color-source-url) 20%, transparent); }
+.badge-persisted { background: color-mix(in srgb, var(--color-source-persisted) 10%, white); color: var(--color-source-persisted); border-color: color-mix(in srgb, var(--color-source-persisted) 20%, transparent); }
+.badge-optimistic { background: color-mix(in srgb, var(--color-source-optimistic) 10%, white); color: var(--color-source-optimistic); border-color: color-mix(in srgb, var(--color-source-optimistic) 20%, transparent); }
+.badge-derived { background: color-mix(in srgb, var(--color-source-derived) 10%, white); color: var(--color-source-derived); border-color: color-mix(in srgb, var(--color-source-derived) 20%, transparent); }
+
+/* Score panel animations */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
