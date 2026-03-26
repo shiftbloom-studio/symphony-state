@@ -10,3 +10,6 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# Demo app
+demo/.next
+demo/node_modules
