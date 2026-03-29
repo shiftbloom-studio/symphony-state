@@ -3,7 +3,7 @@
 import { useState, useSyncExternalStore, useCallback, useRef } from "react";
 import type { Conductor, ConductorSnapshot, TransactionInfo } from "@shiftbloom-studio/symphony-state";
 import { getScoreLog, subscribeScore } from "@/lib/symphony-setup";
-import type { ScoreEvent, SourceType } from "@/lib/types";
+import type { SourceType } from "@/lib/types";
 import { SourceBadge } from "../shared/SourceBadge";
 
 type Tab = "state" | "changes" | "conflicts";
