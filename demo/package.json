@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@shiftbloom-studio/symphony-state": "file:..",
-    "next": "^16.2.1",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "next": "^16.2.3",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",
@@ -22,7 +22,7 @@
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
     "eslint": "^9.39.4",
-    "eslint-config-next": "^16.2.1",
+    "eslint-config-next": "^16.2.3",
     "tailwindcss": "^4.1.8",
     "typescript": "^5.8.3"
   }
