@@ -38,7 +38,7 @@ export type DemoSections = {
 let _conductor: Conductor | null = null;
 let _orchestrator: OrchestratedAdapter<Product[]> | null = null;
 let _scoreLog: ScoreEvent[] = [];
-let _scoreListeners: Set<() => void> = new Set();
+const _scoreListeners: Set<() => void> = new Set();
 
 export const getScoreLog = () => _scoreLog;
 export const subscribeScore = (cb: () => void) => {

@@ -16,24 +16,13 @@ import { WarehouseSelector } from "./WarehouseSelector";
 import { GuidedFlows } from "./GuidedFlows";
 
 export const InventoryDashboard = () => {
-  const [conductor, setConductor] = useState<Conductor | null>(null);
+  const [conductor] = useState<Conductor>(() => createDemoConductor());
 
   useEffect(() => {
-    const c = createDemoConductor();
-    setConductor(c);
-
     return () => {
       destroyDemoConductor();
     };
   }, []);
-
-  if (!conductor) {
-    return (
-      <div className="flex h-[60vh] items-center justify-center">
-        <div className="text-sm text-text-muted">Initializing Symphony State...</div>
-      </div>
-    );
-  }
 
   return (
     <SymphonyProvider conductor={conductor}>
