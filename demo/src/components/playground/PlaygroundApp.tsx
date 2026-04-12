@@ -18,14 +18,66 @@ type LogEntry = {
   timestamp: number;
 };
 
+type PlaygroundRuntime = {
+  conductor: Conductor;
+  orchestrator: OrchestratedAdapter<number>;
+};
+
+const createPlaygroundRuntime = (): PlaygroundRuntime => {
+  const serverSource = createAtomAdapter<number>(100);
+  const optimisticSource = createAtomAdapter<number>(100);
+
+  const orchestrator = createOrchestratedAdapter<number>({
+    instruments: [
+      { id: "server", source: serverSource, priority: 10, role: "server", staleAfterMs: 15000 },
+      { id: "optimistic", source: optimisticSource, priority: 20, role: "optimistic", staleAfterMs: 5000 },
+    ],
+    writeTo: "optimistic",
+  });
+
+  const urlSource = createAtomAdapter<string>("");
+  const uiSource = createAtomAdapter<string>("");
+  const persistedSource = createAtomAdapter<string>("");
+
+  const conductor = createConductor({
+    sections: [
+      defineSection({ key: "stock", source: orchestrator, debugLabel: "Stock (Orchestrated)" }),
+      defineSection({ key: "urlFilter", source: urlSource, debugLabel: "URL Filter" }),
+      defineSection({ key: "uiDraft", source: uiSource, debugLabel: "UI Draft" }),
+      defineSection({
+        key: "persistedNote",
+        source: persistedSource,
+        debugLabel: "Persisted Note",
+        persist: { key: "playground-note", throttleMs: 300 },
+      }),
+    ],
+    derived: [
+      defineDerivedSection<string>({
+        key: "displayLabel",
+        inputs: ["stock", "urlFilter"],
+        compute: (stock: number, filter: string) => {
+          const base = `Stock: ${stock}`;
+          return filter ? `${base} (filtered: "${filter}")` : base;
+        },
+        debugLabel: "Display Label (Derived)",
+      }),
+    ],
+    scheduler: "sync",
+  });
+
+  return { conductor, orchestrator };
+};
+
 export const PlaygroundApp = () => {
-  const conductorRef = useRef<Conductor | null>(null);
-  const orchestratorRef = useRef<OrchestratedAdapter<number> | null>(null);
-  const [ready, setReady] = useState(false);
+  const [runtime] = useState<PlaygroundRuntime>(() => createPlaygroundRuntime());
+  const conductorRef = useRef<Conductor>(runtime.conductor);
+  const orchestratorRef = useRef<OrchestratedAdapter<number>>(runtime.orchestrator);
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const logIdRef = useRef(0);
-  const [snapshot, setSnapshot] = useState<ConductorSnapshot | null>(null);
-  const [orchSnapshot, setOrchSnapshot] = useState<ReturnType<OrchestratedAdapter<number>["getSnapshot"]> | null>(null);
+  const [snapshot, setSnapshot] = useState<ConductorSnapshot>(() => runtime.conductor.getSnapshot());
+  const [orchSnapshot, setOrchSnapshot] = useState<ReturnType<OrchestratedAdapter<number>["getSnapshot"]>>(
+    () => runtime.orchestrator.getSnapshot()
+  );
 
   // Chaos controls
   const [delay, setDelay] = useState(2000);
@@ -40,72 +92,21 @@ export const PlaygroundApp = () => {
   }, []);
 
   useEffect(() => {
-    // Server source
-    const serverSource = createAtomAdapter<number>(100);
-    const optimisticSource = createAtomAdapter<number>(100);
-
-    const orchestrator = createOrchestratedAdapter<number>({
-      instruments: [
-        { id: "server", source: serverSource, priority: 10, role: "server", staleAfterMs: 15000 },
-        { id: "optimistic", source: optimisticSource, priority: 20, role: "optimistic", staleAfterMs: 5000 },
-      ],
-      writeTo: "optimistic",
-    });
-    orchestratorRef.current = orchestrator;
-
-    // Other sources
-    const urlSource = createAtomAdapter<string>("");
-    const uiSource = createAtomAdapter<string>("");
-    const persistedSource = createAtomAdapter<string>("");
-
-    const conductor = createConductor({
-      sections: [
-        defineSection({ key: "stock", source: orchestrator, debugLabel: "Stock (Orchestrated)" }),
-        defineSection({ key: "urlFilter", source: urlSource, debugLabel: "URL Filter" }),
-        defineSection({ key: "uiDraft", source: uiSource, debugLabel: "UI Draft" }),
-        defineSection({
-          key: "persistedNote",
-          source: persistedSource,
-          debugLabel: "Persisted Note",
-          persist: { key: "playground-note", throttleMs: 300 },
-        }),
-      ],
-      derived: [
-        defineDerivedSection<string>({
-          key: "displayLabel",
-          inputs: ["stock", "urlFilter"],
-          compute: (stock: number, filter: string) => {
-            const base = `Stock: ${stock}`;
-            return filter ? `${base} (filtered: "${filter}")` : base;
-          },
-          debugLabel: "Display Label (Derived)",
-        }),
-      ],
-      scheduler: "sync",
-    });
-
-    conductorRef.current = conductor;
-
-    // Subscribe to snapshot updates
     const keys = ["stock", "urlFilter", "uiDraft", "persistedNote", "displayLabel"];
     const unsubs = keys.map((k) =>
-      conductor.subscribe(k, () => {
-        setSnapshot(conductor.getSnapshot());
+      runtime.conductor.subscribe(k, () => {
+        setSnapshot(runtime.conductor.getSnapshot());
         if (orchestratorRef.current) {
           setOrchSnapshot(orchestratorRef.current.getSnapshot());
         }
       })
     );
 
-    setSnapshot(conductor.getSnapshot());
-    setOrchSnapshot(orchestrator.getSnapshot());
-    setReady(true);
-
     return () => {
       unsubs.forEach((u) => u());
-      conductor.destroy();
+      runtime.conductor.destroy();
     };
-  }, []);
+  }, [runtime]);
 
   // --- Actions ---
   const updateServerValue = (value: number) => {
@@ -170,10 +171,6 @@ export const PlaygroundApp = () => {
     }, "atomic-wave");
     addLog("derived", "Atomic transaction: 3 sections in 1 wave");
   };
-
-  if (!ready) {
-    return <div className="flex h-[60vh] items-center justify-center text-text-muted text-sm">Loading...</div>;
-  }
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_380px]">
