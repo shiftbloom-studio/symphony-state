@@ -1,7 +1,11 @@
 "use client";
 
 import { useState, useSyncExternalStore, useCallback, useRef } from "react";
-import type { Conductor, ConductorSnapshot, TransactionInfo } from "@shiftbloom-studio/symphony-state";
+import type {
+  Conductor,
+  ConductorSnapshot,
+  TransactionInfo
+} from "@shiftbloom-studio/symphony-state";
 import { getScoreLog, subscribeScore } from "@/lib/symphony-setup";
 import type { SourceType } from "@/lib/types";
 import { SourceBadge } from "../shared/SourceBadge";
@@ -11,16 +15,16 @@ type Tab = "state" | "changes" | "conflicts";
 const tabConfig: Record<Tab, { label: string; hint: string }> = {
   state: {
     label: "Current State",
-    hint: "Shows the current value of each state section and where it comes from.",
+    hint: "Shows the current value of each state section and where it comes from."
   },
   changes: {
     label: "What Changed",
-    hint: "Every time you do something, a transaction commits changes to one or more sections. This is the log.",
+    hint: "Every time you do something, a transaction commits changes to one or more sections. This is the log."
   },
   conflicts: {
     label: "Conflicts",
-    hint: "When the server and your UI disagree about a value, this shows how it was resolved.",
-  },
+    hint: "When the server and your UI disagree about a value, this shows how it was resolved."
+  }
 };
 
 const timeAgo = (ts: number) => {
@@ -37,7 +41,7 @@ const sectionLabels: Record<string, { label: string; source: SourceType }> = {
   prefs: { label: "Preferences", source: "persisted" },
   chaos: { label: "Chaos Config", source: "ui" },
   filteredProducts: { label: "Filtered Products", source: "derived" },
-  summary: { label: "Summary KPIs", source: "derived" },
+  summary: { label: "Summary KPIs", source: "derived" }
 };
 
 function StateTab({ snapshot }: { snapshot: ConductorSnapshot }) {
@@ -78,7 +82,9 @@ function ChangesTab({ transactions }: { transactions: TransactionInfo[] }) {
       <div className="py-8 text-center text-xs text-text-muted">
         Interact with the dashboard to see changes here.
         <br />
-        <span className="text-text-muted/60">Every button click, filter change, or edit creates a transaction.</span>
+        <span className="text-text-muted/60">
+          Every button click, filter change, or edit creates a transaction.
+        </span>
       </div>
     );
   }
@@ -101,18 +107,13 @@ function ChangesTab({ transactions }: { transactions: TransactionInfo[] }) {
             className="animate-fade-in rounded-lg border border-border-subtle bg-surface-2 p-2.5"
           >
             <div className="mb-1 flex items-center justify-between">
-              <span className="text-xs font-medium text-text-primary">
-                {label}
-              </span>
+              <span className="text-xs font-medium text-text-primary">{label}</span>
               <span className="text-[10px] text-text-muted">{timeAgo(tx.timestamp)}</span>
             </div>
             <div className="flex items-center gap-1 text-[10px] text-text-muted">
               <span>Touched:</span>
               {tx.touched.map((key) => (
-                <span
-                  key={key}
-                  className="rounded bg-surface-3 px-1.5 py-0.5 font-mono"
-                >
+                <span key={key} className="rounded bg-surface-3 px-1.5 py-0.5 font-mono">
                   {sectionLabels[key]?.label ?? key}
                 </span>
               ))}
@@ -150,9 +151,7 @@ function ConflictsTab() {
           className="animate-fade-in rounded-lg border border-border-subtle bg-surface-2 p-2.5"
         >
           <div className="mb-1 flex items-center justify-between">
-            <span className="text-xs font-medium text-text-primary">
-              {evt.label}
-            </span>
+            <span className="text-xs font-medium text-text-primary">{evt.label}</span>
           </div>
           {evt.driver && (
             <div className="mb-1 flex items-center gap-1.5 text-[10px]">
@@ -249,9 +248,7 @@ export const ScorePanel = ({ conductor }: { conductor: Conductor }) => {
 
       {/* Tab hint */}
       <div className="border-b border-border-subtle bg-surface-2/50 px-3 py-2">
-        <p className="text-[10px] leading-relaxed text-text-muted">
-          {tab.hint}
-        </p>
+        <p className="text-[10px] leading-relaxed text-text-muted">{tab.hint}</p>
       </div>
 
       {/* Content */}
