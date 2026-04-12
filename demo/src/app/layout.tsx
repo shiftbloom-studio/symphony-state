@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   description: "Orchestrate multiple state sources without a monolithic global store."
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return (
     <html lang="en">
       <body className="min-h-screen antialiased">{children}</body>
