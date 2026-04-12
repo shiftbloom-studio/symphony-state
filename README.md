@@ -279,4 +279,4 @@ import { SymphonyScript } from "@shiftbloom-studio/symphony-state/react";
 
 ## License
 
-MIT
+Apache-2.0
