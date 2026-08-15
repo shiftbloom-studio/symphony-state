@@ -136,5 +136,8 @@
     "ts-jest": "^29.4.9",
     "tsup": "^8.5.1",
     "typescript": "^6.0.2"
+  },
+  "overrides": {
+    "jsdom": "^29.0.2"
   }
 }
