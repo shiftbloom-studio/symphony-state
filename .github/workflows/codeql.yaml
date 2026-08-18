@@ -1,0 +1,33 @@
+name: Codeql
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions:
+    contents: read
+
+jobs:
+    analyze:
+        name: Codeql Analysis
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            security-events: write
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Initialize Codeql
+              uses: github/codeql-action/init@v3
+              with:
+                  languages: javascript-typescript
+
+            - name: Perform Codeql Analysis
+              uses: github/codeql-action/analyze@v3
+
