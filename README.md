@@ -177,7 +177,7 @@ const auth = defineSection({
 
 ## DevTools & Observability
 
-Use the built-in devtools panel or access orchestration snapshots programmatically.
+Use the built-in devtools panel or access orchestration snapshots programmatically. For a short setup guide covering transaction names and conditional rendering, see the [DevTools recipe](docs/recipe-devtools.md).
 
 ```tsx
 import { SymphonyDevTools } from "@shiftbloom-studio/symphony-state/devtools";
