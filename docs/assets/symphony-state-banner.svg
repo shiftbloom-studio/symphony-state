@@ -23,10 +23,11 @@
   <rect width="1200" height="420" fill="#FFFFFF"/>
   <rect x="1" y="1" width="1198" height="418" fill="none" stroke="#1A1216" stroke-opacity="0.16"/>
 
-  <text x="44" y="42" fill="#1A1216" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="-0.5">shiftbloom studio<tspan fill="#FF2E52">.</tspan></text>
+  <text x="540" y="42" fill="#1A1216" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="-0.5">shiftbloom studio<tspan fill="#FF2E52">.</tspan></text>
   <text x="1156" y="42" text-anchor="end" fill="#1A1216" fill-opacity="0.56" font-family="monospace" font-size="10" letter-spacing="1.7">OPEN SOURCE / 2026</text>
 
-  <g fill="url(#outer)" opacity="0.92">
+  <g transform="translate(68.18 57.27) scale(0.7273)">
+    <g fill="url(#outer)" opacity="0.92">
     <use href="#petal-outer"/><use href="#petal-outer" transform="rotate(36 250 210)"/><use href="#petal-outer" transform="rotate(72 250 210)"/><use href="#petal-outer" transform="rotate(108 250 210)"/><use href="#petal-outer" transform="rotate(144 250 210)"/><use href="#petal-outer" transform="rotate(180 250 210)"/><use href="#petal-outer" transform="rotate(216 250 210)"/><use href="#petal-outer" transform="rotate(252 250 210)"/><use href="#petal-outer" transform="rotate(288 250 210)"/><use href="#petal-outer" transform="rotate(324 250 210)"/>
   </g>
   <g fill="url(#middle)" opacity="0.9" transform="rotate(18 250 210)">
@@ -38,12 +39,8 @@
   <g fill="url(#heart)" opacity="0.92">
     <use href="#petal-heart"/><use href="#petal-heart" transform="rotate(60 250 210)"/><use href="#petal-heart" transform="rotate(120 250 210)"/><use href="#petal-heart" transform="rotate(180 250 210)"/><use href="#petal-heart" transform="rotate(240 250 210)"/><use href="#petal-heart" transform="rotate(300 250 210)"/>
   </g>
-  <circle cx="250" cy="210" r="11" fill="#FF2E52"/>
-
-  <circle cx="94" cy="118" r="4" fill="#FF2E52"/>
-  <circle cx="435" cy="89" r="3" fill="#FF8FAB"/>
-  <path d="M76 322 l28 -9" stroke="#C81040" stroke-width="5" stroke-linecap="round"/>
-  <path d="M430 315 l20 14" stroke="#FF2E52" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="250" cy="210" r="11" fill="#FF2E52"/>
+  </g>
 
   <text x="540" y="156" fill="#1A1216" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="700" letter-spacing="-3">symphony</text>
   <text x="540" y="226" fill="#1A1216" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="700" letter-spacing="-3">state<tspan fill="#FF2E52">.</tspan></text>
