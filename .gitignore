@@ -10,6 +10,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Demo app
+# Generated demo app files
 demo/.next
 demo/node_modules
+demo/next-env.d.ts
