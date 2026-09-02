@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">Symphony State by shiftbloom studio</title>
+  <desc id="desc">Every state source, in concert.</desc>
+  <defs>
+    <linearGradient id="outer" x1="250" y1="210" x2="250" y2="45" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#C81040"/><stop offset="0.55" stop-color="#FF2E52"/><stop offset="1" stop-color="#FF8FAB"/>
+    </linearGradient>
+    <linearGradient id="middle" x1="250" y1="210" x2="250" y2="92" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF2E52"/><stop offset="1" stop-color="#FF8FAB"/>
+    </linearGradient>
+    <linearGradient id="inner" x1="250" y1="210" x2="250" y2="130" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF8FAB"/><stop offset="1" stop-color="#FFC2D3"/>
+    </linearGradient>
+    <linearGradient id="heart" x1="250" y1="210" x2="250" y2="165" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFB4CA"/><stop offset="1" stop-color="#FFE9EF"/>
+    </linearGradient>
+    <path id="petal-outer" d="M250 210 C218 170 220 92 250 45 C280 92 282 170 250 210 Z"/>
+    <path id="petal-middle" d="M250 210 C225 179 228 123 250 92 C272 123 275 179 250 210 Z"/>
+    <path id="petal-inner" d="M250 210 C231 187 233 151 250 130 C267 151 269 187 250 210 Z"/>
+    <path id="petal-heart" d="M250 210 C238 196 239 177 250 164 C261 177 262 196 250 210 Z"/>
+  </defs>
+
+  <rect width="1200" height="420" fill="#FFFFFF"/>
+  <rect x="1" y="1" width="1198" height="418" fill="none" stroke="#1A1216" stroke-opacity="0.16"/>
+
+  <text x="44" y="42" fill="#1A1216" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="-0.5">shiftbloom studio<tspan fill="#FF2E52">.</tspan></text>
+  <text x="1156" y="42" text-anchor="end" fill="#1A1216" fill-opacity="0.56" font-family="monospace" font-size="10" letter-spacing="1.7">OPEN SOURCE / 2026</text>
+
+  <g fill="url(#outer)" opacity="0.92">
+    <use href="#petal-outer"/><use href="#petal-outer" transform="rotate(36 250 210)"/><use href="#petal-outer" transform="rotate(72 250 210)"/><use href="#petal-outer" transform="rotate(108 250 210)"/><use href="#petal-outer" transform="rotate(144 250 210)"/><use href="#petal-outer" transform="rotate(180 250 210)"/><use href="#petal-outer" transform="rotate(216 250 210)"/><use href="#petal-outer" transform="rotate(252 250 210)"/><use href="#petal-outer" transform="rotate(288 250 210)"/><use href="#petal-outer" transform="rotate(324 250 210)"/>
+  </g>
+  <g fill="url(#middle)" opacity="0.9" transform="rotate(18 250 210)">
+    <use href="#petal-middle"/><use href="#petal-middle" transform="rotate(36 250 210)"/><use href="#petal-middle" transform="rotate(72 250 210)"/><use href="#petal-middle" transform="rotate(108 250 210)"/><use href="#petal-middle" transform="rotate(144 250 210)"/><use href="#petal-middle" transform="rotate(180 250 210)"/><use href="#petal-middle" transform="rotate(216 250 210)"/><use href="#petal-middle" transform="rotate(252 250 210)"/><use href="#petal-middle" transform="rotate(288 250 210)"/><use href="#petal-middle" transform="rotate(324 250 210)"/>
+  </g>
+  <g fill="url(#inner)" opacity="0.9">
+    <use href="#petal-inner"/><use href="#petal-inner" transform="rotate(45 250 210)"/><use href="#petal-inner" transform="rotate(90 250 210)"/><use href="#petal-inner" transform="rotate(135 250 210)"/><use href="#petal-inner" transform="rotate(180 250 210)"/><use href="#petal-inner" transform="rotate(225 250 210)"/><use href="#petal-inner" transform="rotate(270 250 210)"/><use href="#petal-inner" transform="rotate(315 250 210)"/>
+  </g>
+  <g fill="url(#heart)" opacity="0.92">
+    <use href="#petal-heart"/><use href="#petal-heart" transform="rotate(60 250 210)"/><use href="#petal-heart" transform="rotate(120 250 210)"/><use href="#petal-heart" transform="rotate(180 250 210)"/><use href="#petal-heart" transform="rotate(240 250 210)"/><use href="#petal-heart" transform="rotate(300 250 210)"/>
+  </g>
+  <circle cx="250" cy="210" r="11" fill="#FF2E52"/>
+
+  <circle cx="94" cy="118" r="4" fill="#FF2E52"/>
+  <circle cx="435" cy="89" r="3" fill="#FF8FAB"/>
+  <path d="M76 322 l28 -9" stroke="#C81040" stroke-width="5" stroke-linecap="round"/>
+  <path d="M430 315 l20 14" stroke="#FF2E52" stroke-width="5" stroke-linecap="round"/>
+
+  <text x="540" y="156" fill="#1A1216" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="700" letter-spacing="-3">symphony</text>
+  <text x="540" y="226" fill="#1A1216" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="700" letter-spacing="-3">state<tspan fill="#FF2E52">.</tspan></text>
+  <text x="545" y="280" fill="#1A1216" fill-opacity="0.72" font-family="Arial, Helvetica, sans-serif" font-size="25">Every state source, in concert.</text>
+  <line x1="545" y1="316" x2="1128" y2="316" stroke="#1A1216" stroke-opacity="0.18"/>
+  <text x="545" y="346" fill="#C81040" font-family="monospace" font-size="11" font-weight="700" letter-spacing="1.6">REACT 19 · TYPESCRIPT · APACHE-2.0</text>
+  <text x="1128" y="346" text-anchor="end" fill="#1A1216" fill-opacity="0.55" font-family="monospace" font-size="10" letter-spacing="1.4">HAMBURG · 53.55° N, 9.99° E</text>
+</svg>

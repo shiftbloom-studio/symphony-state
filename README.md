@@ -1,12 +1,18 @@
-# Symphony State
+<p align="center">
+  <img src="./docs/assets/symphony-state-banner.svg" alt="Symphony State — Every state source, in concert." width="1200" />
+</p>
 
-[![npm](https://img.shields.io/npm/v/@shiftbloom-studio/symphony-state)](https://www.npmjs.com/package/@shiftbloom-studio/symphony-state)
-[![CI](https://img.shields.io/github/actions/workflow/status/shiftbloom-studio/symphony-state/ci.yml)](https://github.com/shiftbloom-studio/symphony-state/actions/workflows/ci.yml)
-[![license](https://img.shields.io/npm/l/@shiftbloom-studio/symphony-state)](LICENSE)
+<h1 align="center">Symphony State</h1>
 
-**Orchestrate multiple state sources without a monolithic global store.**
+<p align="center">
+  <a href="https://www.npmjs.com/package/@shiftbloom-studio/symphony-state"><img alt="npm" src="https://img.shields.io/npm/v/@shiftbloom-studio/symphony-state?color=ff2e52&labelColor=1a1216" /></a>
+  <a href="https://github.com/shiftbloom-studio/symphony-state/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/shiftbloom-studio/symphony-state/ci.yml?color=ff2e52&labelColor=1a1216" /></a>
+  <a href="./LICENSE"><img alt="Apache-2.0 license" src="https://img.shields.io/npm/l/@shiftbloom-studio/symphony-state?color=ff2e52&labelColor=1a1216" /></a>
+</p>
 
-Symphony State is a lightweight orchestration layer that keeps server caches, UI state, and browser persistence in tempo. It does not replace your existing stores. Instead, it composes them into predictable, dependency-driven flows with atomic transactions, derived sections, and observable reconciliation.
+<p align="center"><strong>Every state source, in concert.</strong></p>
+
+Symphony State is a lightweight orchestration layer for server caches, UI state, URL params, and browser persistence. It keeps your existing stores independent, then composes their updates into predictable flows with atomic transactions, derived sections, and observable reconciliation.
 
 ---
 

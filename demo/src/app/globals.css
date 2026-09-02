@@ -1,67 +1,234 @@
+/* Self-hosted fonts. Clash Display & General Sans: Fontshare (free for commercial
+   use, fontshare.com). JetBrains Mono: SIL OFL 1.1, via Fontsource 5.3.0.
+   WOFF2 files live in /public/fonts. */
+@font-face {
+  font-family: "Clash Display";
+  src: url("/fonts/clash-display-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "General Sans";
+  src: url("/fonts/general-sans-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "General Sans";
+  src: url("/fonts/general-sans-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "General Sans";
+  src: url("/fonts/general-sans-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import "tailwindcss";
 
 @theme {
-  /* Light, clean surfaces */
-  --color-surface-0: #fafbfc;
+  /* shiftbloom studio — Brand Book v2.0 */
+  --color-bloom-red: #ff2e52;
+  --color-root-red: #c81040;
+  --color-petal-pink: #ff8fab;
+  --color-blush: #ffe9ef;
+  --color-ink: #1a1216;
+  --color-paper: #ffffff;
+  --color-paper-warm: #faf6f4;
+
+  /* Existing semantic aliases, now constrained to the brand palette. */
+  --color-surface-0: #ffffff;
   --color-surface-1: #ffffff;
-  --color-surface-2: #f4f5f7;
-  --color-surface-3: #ebedf0;
-  --color-border: #e0e3e8;
-  --color-border-subtle: #ebedf0;
-  --color-text-primary: #1a1d23;
-  --color-text-secondary: #5a6070;
-  --color-text-muted: #8b90a0;
+  --color-surface-2: #faf6f4;
+  --color-surface-3: #ffe9ef;
+  --color-border: color-mix(in srgb, #1a1216 16%, #ffffff);
+  --color-border-subtle: color-mix(in srgb, #1a1216 9%, #ffffff);
+  --color-text-primary: #1a1216;
+  --color-text-secondary: color-mix(in srgb, #1a1216 72%, #ffffff);
+  --color-text-muted: color-mix(in srgb, #1a1216 65%, #ffffff);
 
-  /* Softer, muted source colors */
-  --color-source-server: #4a7ccc;
-  --color-source-ui: #7c6cb5;
-  --color-source-url: #c4880d;
-  --color-source-persisted: #2f9e7a;
-  --color-source-optimistic: #cd5a8e;
-  --color-source-derived: #2d9bb5;
+  --color-source-server: #c81040;
+  --color-source-ui: #1a1216;
+  --color-source-url: #c81040;
+  --color-source-persisted: #1a1216;
+  --color-source-optimistic: #c81040;
+  --color-source-derived: #1a1216;
 
-  --color-accent: #5b63d3;
-  --color-accent-hover: #6e76e0;
+  --color-accent: #ff2e52;
+  --color-accent-hover: #c81040;
 
-  --font-mono: "SF Mono", "Fira Code", "JetBrains Mono", ui-monospace, monospace;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Clash Display", "Arial Black", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "General Sans", "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, ui-monospace, monospace;
+}
+
+:root {
+  --bloom-ease: cubic-bezier(0.22, 1.1, 0.36, 1);
+  --settle-ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--color-surface-0);
-  color: var(--color-text-primary);
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--color-accent) 25%, transparent);
-  color: var(--color-text-primary);
+  background: var(--color-root-red);
+  color: var(--color-paper);
 }
 
-/* Source badge colors — soft tinted backgrounds */
-.badge-server { background: color-mix(in srgb, var(--color-source-server) 10%, white); color: var(--color-source-server); border-color: color-mix(in srgb, var(--color-source-server) 20%, transparent); }
-.badge-ui { background: color-mix(in srgb, var(--color-source-ui) 10%, white); color: var(--color-source-ui); border-color: color-mix(in srgb, var(--color-source-ui) 20%, transparent); }
-.badge-url { background: color-mix(in srgb, var(--color-source-url) 10%, white); color: var(--color-source-url); border-color: color-mix(in srgb, var(--color-source-url) 20%, transparent); }
-.badge-persisted { background: color-mix(in srgb, var(--color-source-persisted) 10%, white); color: var(--color-source-persisted); border-color: color-mix(in srgb, var(--color-source-persisted) 20%, transparent); }
-.badge-optimistic { background: color-mix(in srgb, var(--color-source-optimistic) 10%, white); color: var(--color-source-optimistic); border-color: color-mix(in srgb, var(--color-source-optimistic) 20%, transparent); }
-.badge-derived { background: color-mix(in srgb, var(--color-source-derived) 10%, white); color: var(--color-source-derived); border-color: color-mix(in srgb, var(--color-source-derived) 20%, transparent); }
+:focus-visible {
+  outline: 2px solid var(--color-bloom-red);
+  outline-offset: 3px;
+}
 
-/* Score panel animations */
+.brand-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.035em;
+}
+
+.brand-label {
+  font-family: var(--font-mono);
+  font-size: 0.675rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.brand-button {
+  align-items: center;
+  background: var(--color-root-red);
+  border: 1px solid var(--color-root-red);
+  border-radius: 999px;
+  color: var(--color-paper);
+  display: inline-flex;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  justify-content: center;
+  letter-spacing: 0.15em;
+  min-height: 44px;
+  padding: 0.85rem 1.5rem;
+  text-transform: uppercase;
+  transition: background-color 180ms var(--settle-ease), border-color 180ms var(--settle-ease), transform 180ms var(--settle-ease);
+}
+
+.brand-button:hover {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  transform: translateY(-1px);
+}
+
+.brand-link {
+  color: var(--color-root-red);
+  text-decoration-color: color-mix(in srgb, var(--color-root-red) 38%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.28em;
+}
+
+.brand-link:hover {
+  text-decoration-color: var(--color-root-red);
+}
+
+/* Source badges use labels and shape, not an off-brand rainbow. */
+.badge-server,
+.badge-url,
+.badge-optimistic {
+  background: var(--color-blush);
+  border-color: color-mix(in srgb, var(--color-root-red) 24%, transparent);
+  color: var(--color-root-red);
+}
+
+.badge-ui,
+.badge-persisted,
+.badge-derived {
+  background: var(--color-paper-warm);
+  border-color: color-mix(in srgb, var(--color-ink) 18%, transparent);
+  color: var(--color-ink);
+}
+
 @keyframes fade-in {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in {
-  animation: fade-in 0.3s ease-out;
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-/* Scrollbar styling */
+@keyframes bloom-unfurl {
+  from { opacity: 0; transform: scale(0.72) rotate(-2deg); }
+  to { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes bloom-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+.animate-fade-in {
+  animation: fade-in 300ms var(--bloom-ease);
+}
+
+.bloom-unfurl {
+  animation: bloom-unfurl 720ms var(--bloom-ease) both, bloom-breathe 6000ms var(--settle-ease) 720ms infinite;
+  transform-origin: center;
+}
+
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--color-ink) 22%, transparent); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--color-ink) 42%, transparent); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

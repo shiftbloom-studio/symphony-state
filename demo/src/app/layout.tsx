@@ -3,8 +3,8 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Symphony State — Demo",
-  description: "Orchestrate multiple state sources without a monolithic global store."
+  title: "Symphony State — Every source in concert",
+  description: "Compose server data, UI state, URL state, and persistence through one predictable React conductor.",
 };
 
 export default function RootLayout({
