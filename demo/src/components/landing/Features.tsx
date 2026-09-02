@@ -1,71 +1,64 @@
-"use client";
-
 const features = [
   {
-    icon: "🎼",
     title: "Orchestration, not ownership",
     description:
       "Each source keeps its store. Symphony State coordinates reads, writes, and conflict resolution across all of them.",
   },
   {
-    icon: "⚡",
     title: "Single-wave commits",
     description:
-      "Updates are staged, dependency-ordered, and committed atomically. No cascading re-renders, no stale intermediate states.",
+      "Updates are staged, dependency-ordered, and committed atomically. No cascading re-renders or stale intermediate states.",
   },
   {
-    icon: "🔬",
     title: "Observable state",
     description:
-      "Every value carries its provenance. The Score panel shows which source is driving, what was reconciled, and why.",
+      "Every value carries its provenance. The Score shows which source is driving, what was reconciled, and why.",
   },
   {
-    icon: "🧩",
     title: "Composable adapters",
     description:
-      "Atom, Zustand, Redux, TanStack Query, URL params — plug in what you use. No migration required.",
+      "Atom, Zustand, Redux, TanStack Query, and URL params plug into the stores you already use. No migration required.",
   },
   {
-    icon: "🛡",
-    title: "Reconciliation precedence",
+    title: "Explicit precedence",
     description:
-      "Server vs. optimistic vs. persisted? Priority, staleness, and custom rules decide deterministically.",
+      "Priority, freshness, staleness, and custom rules resolve conflicts between server, optimistic, and persisted state.",
   },
   {
-    icon: "📊",
-    title: "Minimal re-renders",
+    title: "Quiet rendering",
     description:
-      "Subscribers are notified only for touched sections. Unchanged components stay untouched.",
+      "Subscribers are notified only for touched sections. Components whose state did not change stay untouched.",
   },
 ];
 
 export const Features = () => {
   return (
-    <section className="border-b border-border py-20">
-      <div className="mx-auto max-w-5xl px-6">
-        <h2 className="mb-2 text-center text-sm font-medium uppercase tracking-widest text-text-muted">
-          Key concepts
-        </h2>
-        <p className="mb-12 text-center text-2xl font-semibold text-text-primary">
-          What makes it different
-        </p>
-
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature) => (
-            <div
-              key={feature.title}
-              className="rounded-xl border border-border bg-surface-1 p-6 transition-colors hover:border-border/80"
-            >
-              <div className="mb-4 text-2xl">{feature.icon}</div>
-              <h3 className="mb-2 text-sm font-semibold text-text-primary">
-                {feature.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-text-secondary">
-                {feature.description}
-              </p>
-            </div>
-          ))}
+    <section className="border-b border-border bg-paper" aria-labelledby="principles-title">
+      <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-12 md:px-10 md:py-28 lg:px-14">
+        <div className="md:col-span-4">
+          <p className="brand-label text-root-red">Principles / 04</p>
+          <h2
+            id="principles-title"
+            className="brand-display mt-5 text-[clamp(2.8rem,5vw,5.3rem)] font-semibold leading-[0.94] text-ink"
+          >
+            Clear rules. Fewer surprises.
+          </h2>
         </div>
+
+        <ol className="border-t border-ink/20 md:col-span-7 md:col-start-6">
+          {features.map((feature, index) => (
+            <li
+              key={feature.title}
+              className="grid gap-3 border-b border-ink/20 py-6 sm:grid-cols-[3rem_0.9fr_1.25fr] sm:gap-5"
+            >
+              <span className="font-mono text-[11px] font-medium tracking-[0.14em] text-root-red">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h3 className="font-medium leading-6 text-ink">{feature.title}</h3>
+              <p className="text-sm leading-6 text-text-secondary">{feature.description}</p>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );
