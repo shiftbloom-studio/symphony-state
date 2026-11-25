@@ -313,7 +313,7 @@ export function LegalPage({ kind, lang }: { kind: Kind; lang: Lang }) {
 }
 
 export const legalMetadata = (kind: Kind, lang: Lang) => ({
-  title: `${TITLES[kind][lang]} · Symphony State`,
+  title: TITLES[kind][lang],
   robots: { index: false },
   alternates: {
     languages: { en: PATHS[kind].en, de: PATHS[kind].de },

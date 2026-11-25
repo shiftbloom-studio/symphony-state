@@ -1,5 +1,13 @@
 import { Navigation } from "@/components/shared/Navigation";
 import { PlaygroundApp } from "@/components/playground/PlaygroundApp";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "State Lab",
+  description:
+    "Trigger single state sources, add network delay and stale responses, then watch Symphony State reconcile them in your browser.",
+  path: "/playground",
+});
 
 export default function PlaygroundPage() {
   return (

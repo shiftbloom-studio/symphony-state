@@ -33,7 +33,7 @@ export const Hero = () => {
             id="hero-title"
             className="brand-display max-w-3xl text-[clamp(3.35rem,8vw,7.8rem)] font-semibold leading-[0.86] text-ink"
           >
-            Every state source,
+            Every state source,{" "}
             <span className="block text-bloom-red">in concert.</span>
           </h1>
           <p className="mt-8 max-w-xl text-lg leading-8 text-text-secondary sm:text-xl">

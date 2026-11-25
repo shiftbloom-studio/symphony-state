@@ -1,5 +1,13 @@
 import { Navigation } from "@/components/shared/Navigation";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Mental model",
+  description:
+    "How Symphony State coordinates stores you already have: staged commits, dependency flow between sections, reconciliation and what you can observe, each with a code sample.",
+  path: "/docs/mental-model",
+});
 
 const concepts = [
   {
