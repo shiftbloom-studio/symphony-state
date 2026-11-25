@@ -1,0 +1,45 @@
+# Symphony State
+
+> Symphony State (npm: @shiftbloom-studio/symphony-state) is an open source TypeScript library for React 18+ that coordinates state you already keep in different places: TanStack Query caches, Zustand or Redux stores, URL search params, local UI state and localStorage. Each source stays independent. A conductor stages updates, resolves them in dependency order and commits them in one wave, and orchestrated adapters decide which source wins when the server and an optimistic edit disagree.
+
+- Install: `npm install @shiftbloom-studio/symphony-state`
+- Source and full README: https://github.com/shiftbloom-studio/symphony-state
+- Package: https://www.npmjs.com/package/@shiftbloom-studio/symphony-state
+- License: AGPL-3.0-or-later (versions up to 0.1.2 were Apache-2.0). Made by shiftbloom studio: https://shiftbloom.studio
+
+## Entry points
+
+- `@shiftbloom-studio/symphony-state`: createConductor, defineSection, defineDerivedSection, createOrchestratedAdapter, createAtomAdapter, createExternalStoreAdapter, createUrlParamsAdapter, createStorageSink
+- `@shiftbloom-studio/symphony-state/react`: SymphonyProvider, useSection, useSelector, createSymphony, SymphonyScript (hydration)
+- `@shiftbloom-studio/symphony-state/devtools`: SymphonyDevTools panel
+- `@shiftbloom-studio/symphony-state/adapters/query`, `/adapters/zustand`, `/adapters/redux`: adapters for TanStack Query, Zustand and Redux
+
+## Minimal example
+
+```tsx
+import { createConductor, defineSection, createAtomAdapter } from "@shiftbloom-studio/symphony-state";
+import { SymphonyProvider, useSection } from "@shiftbloom-studio/symphony-state/react";
+
+const auth = defineSection({ key: "auth", source: createAtomAdapter({ userId: null as string | null }) });
+const conductor = createConductor({ sections: [auth] });
+
+function AuthPanel() {
+  const section = useSection<{ userId: string | null }>("auth");
+  return <button onClick={() => section.set({ userId: "42" })}>{section.value.userId ?? "Login"}</button>;
+}
+
+export const App = () => (
+  <SymphonyProvider conductor={conductor}>
+    <AuthPanel />
+  </SymphonyProvider>
+);
+```
+
+Several updates in one atomic step: `conductor.transaction(() => { ... }, "login")`.
+
+## Pages
+
+- [Home and live demo](https://symphony.shiftbloom.studio/): what the library does, with a widget that shows which source drives the UI.
+- [Mental model](https://symphony.shiftbloom.studio/docs/mental-model): orchestration, staged commits, dependency flow, reconciliation and observability, each with code.
+- [State Lab](https://symphony.shiftbloom.studio/playground): trigger single sources, add delay and stale responses, watch reconciliation.
+- [Inventory demo](https://symphony.shiftbloom.studio/demo/inventory): a dashboard with server data, optimistic stock edits, filters and saved preferences in one conductor.
