@@ -21,7 +21,7 @@ export const Navigation = () => {
       >
         <Link href="/" className="flex min-w-0 items-center gap-3" aria-label="Symphony State home">
           <BloomMark idPrefix="nav-bloom" width={30} height={30} className="shrink-0" />
-          <Wordmark className="text-lg sm:text-[1.4rem]" />
+          <Wordmark className="hidden text-lg sm:inline sm:text-[1.4rem]" />
           <span className="hidden font-mono text-xs text-text-muted md:inline">/ symphony-state</span>
         </Link>
 
