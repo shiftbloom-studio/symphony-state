@@ -112,7 +112,7 @@ export const PlaygroundApp = () => {
   const updateServerValue = (value: number) => {
     const c = conductorRef.current;
     if (!c || offline) {
-      addLog("server", offline ? "BLOCKED — offline" : "No conductor");
+      addLog("server", offline ? "Blocked: offline" : "No conductor");
       return;
     }
     addLog("server", `Fetching... (${delay}ms)`);
@@ -221,9 +221,9 @@ export const PlaygroundApp = () => {
             <div>
               <div className="mb-2 flex items-center gap-1.5">
                 <SourceBadge source="server" size="xs" />
-                <span className="text-xs text-text-muted">Server Response</span>
+                <span className="text-xs text-text-muted">Server response</span>
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 {[80, 100, 120, 200].map((v) => (
                   <button
                     key={v}

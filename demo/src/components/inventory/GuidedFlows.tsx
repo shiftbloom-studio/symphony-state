@@ -20,15 +20,15 @@ const tryCards: TryCard[] = [
     id: "edit-stock",
     emoji: "①",
     title: "Edit a stock number",
-    what: "When you change stock, the UI updates instantly — before the server confirms. This is called an optimistic update. If the server disagrees, Symphony State resolves the conflict automatically.",
+    what: "When you change stock, the UI updates right away, before the server confirms. This is called an optimistic update. If the server disagrees, Symphony State resolves the conflict automatically.",
     howTo: "Click any number in the Stock column, change it, press Save.",
-    watch: "The summary bar recalculates immediately. Check 'What Changed' in the Score panel to see which parts of the state were touched.",
+    watch: "The summary bar recalculates immediately. Check 'What changed' in the Score panel to see which parts of the state were touched.",
   },
   {
     id: "switch-warehouse",
     emoji: "②",
     title: "Switch the warehouse",
-    what: "Switching context normally causes a chain of separate updates: URL changes, selections reset, preferences save, summaries recalculate. With Symphony State, all of that happens as one atomic transaction — no flickering, no intermediate states.",
+    what: "Switching context normally causes a chain of separate updates: URL changes, selections reset, preferences save, summaries recalculate. With Symphony State, all of that happens in one transaction, so the screen doesn't flicker through in-between states.",
     howTo: "Click one of the warehouse buttons above (e.g. 'Berlin-Central').",
     watch: "In the Score panel, you'll see a single transaction labeled 'warehouse-switch' that touched 3 sections at once.",
   },
@@ -37,7 +37,7 @@ const tryCards: TryCard[] = [
     emoji: "③",
     title: "Simulate a slow network",
     what: "Real users have slow connections. When you edit stock and the server takes 3 seconds to respond, most apps either freeze the UI or show wrong data briefly. Symphony State keeps the UI responsive with optimistic data, then cleanly reconciles when the server answers.",
-    howTo: "In 'Simulate Problems' below, set the delay to 3s and enable 'Server Conflicts'. Then edit a stock number.",
+    howTo: "In 'Simulate problems' below, set the delay to 3s and enable 'Server conflicts'. Then edit a stock number.",
     watch: "The Score panel → 'Conflicts' tab shows exactly when the server responded and which source won.",
     setup: (conductor) => {
       conductor.transaction(() => {
@@ -73,11 +73,11 @@ export const GuidedFlows = ({ conductor }: { conductor: Conductor }) => {
         <div className="flex items-start justify-between">
           <div>
             <h3 className="text-sm font-semibold text-text-primary mb-1.5">
-              💡 What am I looking at?
+              What am I looking at?
             </h3>
             <p className="text-xs leading-relaxed text-text-secondary max-w-2xl">
               This is a product inventory where state comes from <strong>4 different places</strong> at the same time.
-              Normally, keeping them in sync is a mess — updates flicker, data conflicts, and components show stale values.
+              Keeping them in sync by hand usually means flicker, conflicting data and components that show stale values.
               Symphony State coordinates all of them like a conductor coordinates an orchestra.
             </p>
           </div>

@@ -1,0 +1,15 @@
+{
+  // Static demo site, served from Workers static assets. No Worker script runs.
+  // Build: `npm run build` writes the static export to ./out.
+  // The custom domain is attached in the Cloudflare dashboard, not here.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "symphony-state",
+  "compatibility_date": "2026-11-01",
+  "workers_dev": false,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./out",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

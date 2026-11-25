@@ -7,7 +7,7 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/@shiftbloom-studio/symphony-state"><img alt="npm" src="https://img.shields.io/npm/v/@shiftbloom-studio/symphony-state?color=ff2e52&labelColor=1a1216" /></a>
   <a href="https://github.com/shiftbloom-studio/symphony-state/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/shiftbloom-studio/symphony-state/ci.yml?color=ff2e52&labelColor=1a1216" /></a>
-  <a href="./LICENSE"><img alt="Apache-2.0 license" src="https://img.shields.io/npm/l/@shiftbloom-studio/symphony-state?color=ff2e52&labelColor=1a1216" /></a>
+  <a href="./LICENSE"><img alt="AGPL-3.0-or-later license" src="https://img.shields.io/npm/l/@shiftbloom-studio/symphony-state?color=ff2e52&labelColor=1a1216" /></a>
 </p>
 
 <p align="center"><strong>Every state source, in concert.</strong></p>
@@ -285,4 +285,4 @@ import { SymphonyScript } from "@shiftbloom-studio/symphony-state/react";
 
 ## License
 
-Apache-2.0
+[AGPL-3.0-or-later](./LICENSE). Versions up to 0.1.2 were released under Apache-2.0 and stay available under that license.
