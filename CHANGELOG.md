@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0
+
+### Minor Changes
+
+- 46fe51c: Relicense under AGPL-3.0-or-later. Versions up to 0.1.2 stay available under Apache-2.0.
+
 ## 0.1.2
 
 ### Patch Changes
