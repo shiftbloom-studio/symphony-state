@@ -17,3 +17,4 @@ demo/next-env.d.ts
 
 demo/out
 demo/.wrangler
+*.tsbuildinfo
