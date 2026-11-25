@@ -68,12 +68,12 @@
   --color-petal-pink: #ff8fab;
   --color-blush: #ffe9ef;
   --color-ink: #1a1216;
-  --color-paper: #F6F1EE;
-  --color-paper-warm: #EEE6E2;
+  --color-paper: #f6f1ee;
+  --color-paper-warm: #eee6e2;
 
   /* Existing semantic aliases, now constrained to the brand palette. */
-  --color-surface-0: #F6F1EE;
-  --color-surface-1: #FBF8F6;
+  --color-surface-0: #f6f1ee;
+  --color-surface-1: #fbf8f6;
   --color-surface-2: #faf6f4;
   --color-surface-3: #ffe9ef;
   --color-border: color-mix(in srgb, #1a1216 16%, #ffffff);
