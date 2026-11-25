@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import { BloomMark } from "@/components/brand/BloomMark";
 import { Wordmark } from "@/components/shared/Wordmark";
 
 const links = [
@@ -19,9 +19,10 @@ export const Navigation = () => {
         className="mx-auto flex h-16 max-w-[100rem] items-center justify-between gap-4 px-6 md:px-10 lg:px-14 2xl:px-20"
         aria-label="Primary navigation"
       >
-        <Link href="/" className="flex min-w-0 items-baseline gap-3" aria-label="Symphony State home">
-          <Wordmark className="text-base sm:text-lg" />
-          <span className="hidden font-mono text-xs text-text-muted sm:inline">/ symphony-state</span>
+        <Link href="/" className="flex min-w-0 items-center gap-3" aria-label="Symphony State home">
+          <BloomMark idPrefix="nav-bloom" width={30} height={30} className="shrink-0" />
+          <Wordmark className="text-lg sm:text-[1.4rem]" />
+          <span className="hidden font-mono text-xs text-text-muted md:inline">/ symphony-state</span>
         </Link>
 
         <div className="flex shrink-0 items-center gap-3 whitespace-nowrap text-sm font-medium sm:gap-6">
