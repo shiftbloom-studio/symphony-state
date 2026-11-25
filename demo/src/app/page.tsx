@@ -58,7 +58,7 @@ export default function Home() {
             </p>
           </div>
           <p className="brand-label md:col-span-3 md:col-start-7">
-            Symphony State · Apache-2.0
+            Symphony State · AGPL-3.0-or-later
           </p>
           <div className="flex gap-5 md:col-span-3 md:justify-end">
             <Link href="/imprint" className="brand-link">Imprint</Link>

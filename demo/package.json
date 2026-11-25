@@ -2,6 +2,7 @@
   "name": "symphony-state-demo",
   "version": "0.1.0",
   "private": true,
+  "license": "AGPL-3.0-or-later",
   "scripts": {
     "prepare:lib": "node scripts/link-lib.mjs",
     "postinstall": "npm run prepare:lib",

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 import { useCallback, useMemo, useRef, useSyncExternalStore } from "react";
 import type { SectionHandle } from "../core/types";
 import { useConductor } from "./SymphonyProvider";

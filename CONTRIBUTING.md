@@ -54,3 +54,7 @@ Add a changeset for user-facing changes:
 npm run changeset
 ```
 
+
+## License
+
+By contributing, you agree that your contributions are licensed under the [AGPL-3.0-or-later](./LICENSE).

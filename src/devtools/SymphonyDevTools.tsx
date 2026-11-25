@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 import React, { useCallback, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { useConductor } from "../react/SymphonyProvider";
 
