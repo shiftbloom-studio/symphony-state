@@ -19,7 +19,7 @@ export default function Home() {
         <Features />
 
         <section className="bg-root-red text-paper" aria-labelledby="closing-title">
-          <div className="mx-auto grid max-w-7xl gap-10 px-6 py-20 md:grid-cols-12 md:px-10 md:py-28 lg:px-14">
+          <div className="mx-auto grid max-w-[100rem] gap-10 px-6 py-20 md:grid-cols-12 md:px-10 md:py-28 lg:px-14 2xl:px-20">
             <p className="brand-label md:col-span-3">Open by default / 05</p>
             <div className="md:col-span-8 md:col-start-5">
               <h2
@@ -48,7 +48,7 @@ export default function Home() {
       </main>
 
       <footer className="border-t border-border bg-paper py-10">
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 text-xs text-text-muted md:grid-cols-12 md:px-10 lg:px-14">
+        <div className="mx-auto grid max-w-[100rem] gap-8 px-6 text-xs text-text-muted md:grid-cols-12 md:px-10 lg:px-14 2xl:px-20">
           <div className="md:col-span-5">
             <p className="brand-display text-xl font-semibold text-ink">
               shiftbloom studio<span className="text-bloom-red">.</span>

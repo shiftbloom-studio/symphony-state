@@ -4,7 +4,7 @@ import { BloomMark } from "@/components/brand/BloomMark";
 
 const sprinkles = [
   "left-[7%] top-[19%] h-1.5 w-1.5 rounded-full bg-root-red",
-  "left-[17%] top-[73%] h-1 w-8 rotate-[-18deg] rounded-full bg-petal-pink",
+  "left-[3%] top-[80%] h-1 w-8 rotate-[-18deg] rounded-full bg-petal-pink",
   "left-[44%] top-[13%] h-1 w-5 rotate-[28deg] rounded-full bg-ink",
   "right-[8%] top-[17%] h-2 w-2 rounded-full bg-bloom-red",
   "right-[4%] top-[58%] h-1 w-9 rotate-[62deg] rounded-full bg-root-red",
@@ -24,7 +24,7 @@ export const Hero = () => {
         ))}
       </div>
 
-      <div className="relative mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl grid-cols-1 items-center gap-10 px-6 py-20 md:grid-cols-12 md:px-10 lg:gap-4 lg:px-14">
+      <div className="relative mx-auto grid min-h-[calc(100svh-4rem)] max-w-[100rem] grid-cols-1 items-center gap-10 px-6 py-20 md:grid-cols-12 md:px-10 lg:gap-4 lg:px-14 2xl:px-20">
         <div className="relative z-10 md:col-span-7 lg:col-span-6">
           <p className="brand-label mb-7 text-root-red">
             Symphony State / Open source
@@ -74,8 +74,8 @@ export const Hero = () => {
           </div>
         </div>
 
-        <p className="brand-label absolute bottom-5 left-6 text-text-muted md:left-10 lg:left-14">
-          React 19 · TypeScript · Apache-2.0
+        <p className="brand-label absolute bottom-5 left-6 text-text-muted md:left-10 lg:left-14 2xl:left-20">
+          React 19 · TypeScript · AGPL-3.0
         </p>
         <p
           className="brand-label absolute bottom-5 right-6 hidden text-text-muted [writing-mode:vertical-rl] md:block lg:right-8"
