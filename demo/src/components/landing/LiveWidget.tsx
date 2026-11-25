@@ -37,23 +37,23 @@ type GuideStep = {
 const guideSteps: GuideStep[] = [
   {
     instruction: "Type 'usb' in the filter field",
-    detail: "This updates URL state → derived list recomputes instantly. In a typical app, this would be two separate setState calls. Here it's one atomic transaction.",
+    detail: "Typing updates the URL state, and the derived list recomputes right away. Without a conductor that would be two separate setState calls. Here it is one transaction.",
     check: ({ filter }) => filter.toLowerCase().includes("usb"),
   },
   {
     instruction: "Now clear the filter and click 'Fetch Server Data'",
-    detail: "This triggers an async server call. The derived list will recompute when the server responds — even though it's a different source. The conductor knows the dependency.",
+    detail: "This triggers an async server call. When the server answers, the derived list recomputes on its own, because the conductor knows the list depends on that data.",
     check: ({ events }) => events.some((e) => e.source === "server" && e.label.includes("items returned")),
   },
   {
     instruction: "Set the delay to 3s+ and click 'Fetch Server Data' again. While it's loading, type a filter.",
-    detail: "This is the key insight: the filter works instantly on the current data while the server is still loading. When the server responds, the derived list re-evaluates with both the new server data AND the active filter — in one commit wave.",
+    detail: "The filter applies right away to the data you already have, while the server is still loading. When the response arrives, the list is recomputed with the new data and the active filter in a single commit.",
     check: ({ events, filter }) =>
       filter.length > 0 && events.some((e) => e.source === "server" && e.label.includes("fetching")),
   },
   {
     instruction: "Type something in 'Local draft' and click Save",
-    detail: "This is UI-local state — it doesn't affect the filter or the server. But it's still tracked by the conductor. In the Score panel you'll see the transaction, confirming that Symphony State orchestrates all sources, even purely local ones.",
+    detail: "This is local UI state. It doesn't touch the filter or the server, but the conductor still records it, and you can see the transaction in the score panel.",
     check: ({ events }) => events.some((e) => e.source === "ui" && e.label.includes("draft saved")),
   },
 ];
@@ -172,18 +172,18 @@ export const LiveWidget = () => {
 
   return (
     <section className="border-b border-border bg-paper" aria-labelledby="live-demo-title">
-      <div className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28 lg:px-14">
+      <div className="mx-auto max-w-[100rem] px-6 py-20 md:px-10 md:py-28 lg:px-14 2xl:px-20">
         <div className="mb-10 grid gap-5 md:grid-cols-12">
-          <p className="brand-label text-root-red md:col-span-3">Live score / 03</p>
+          <p className="brand-label text-root-red md:col-span-3">Live demo / 02</p>
           <div className="md:col-span-8 md:col-start-5">
             <h2
               id="live-demo-title"
               className="brand-display text-[clamp(2.8rem,5vw,5.3rem)] font-semibold leading-[0.94] text-ink"
             >
-              Hear the state change.
+              Watch a change go through
             </h2>
             <p className="mt-5 max-w-2xl text-base leading-7 text-text-secondary">
-              Four short moves show URL, server, local, and derived state resolving through one conductor.
+              Four short steps. Each one changes a single source, and the score on the right shows what the conductor did with it.
             </p>
           </div>
         </div>
@@ -228,9 +228,9 @@ export const LiveWidget = () => {
             <button
               type="button"
               onClick={() => setCurrentStep(0)}
-              className="ml-auto min-h-11 font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-text-muted hover:text-root-red"
+              className="ml-auto min-h-11 text-sm font-medium text-text-muted hover:text-root-red"
             >
-              Restart
+              Start over
             </button>
           </div>
 
@@ -250,7 +250,7 @@ export const LiveWidget = () => {
                 You&apos;ve seen the core idea.
               </p>
               <p className="mt-1.5 text-xs leading-relaxed text-text-secondary">
-                Three different state sources — URL params, server cache, local UI — coordinated by a single conductor. Each change was an atomic transaction. The derived list always reflected the consistent merged state. No glue code, no intermediate renders, no race conditions.
+                You just changed the URL, the server cache and local UI state, and every change went through as one transaction. The derived list never showed a mix of old and new data, and none of it needed glue code.
               </p>
             </div>
             )}
@@ -290,7 +290,7 @@ export const LiveWidget = () => {
                 <button
                   type="button"
                   onClick={handleDraftSave}
-                  className="min-h-11 border border-ink/20 bg-paper px-3 font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-ink hover:border-root-red hover:text-root-red"
+                  className="brand-button-quiet"
                 >
                   Save
                 </button>
@@ -304,9 +304,9 @@ export const LiveWidget = () => {
                 type="button"
                 onClick={handleServerFetch}
                 disabled={loading}
-                className="min-h-11 bg-root-red px-4 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-paper transition-colors hover:bg-ink disabled:cursor-wait disabled:opacity-55"
+                className="brand-button"
               >
-                {loading ? "Fetching..." : "Fetch server data"}
+                {loading ? "Fetching…" : "Fetch from server"}
               </button>
               <label htmlFor="live-delay" className="flex min-h-11 flex-1 items-center gap-2 text-xs text-text-muted">
                 Delay
@@ -355,13 +355,13 @@ export const LiveWidget = () => {
               <h3 className="brand-label text-paper">
                 Score
               </h3>
-              <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-paper/60">{events.length} events</span>
+              <span className="font-mono text-xs text-paper/60">{events.length} events</span>
             </div>
 
             {events.length === 0 && (
               <div className="mb-3 border border-paper/15 p-3">
                 <p className="text-[11px] leading-relaxed text-paper/65">
-                  This panel shows the event log — every state transaction, every source change, every derived recomputation. In a real app, this is what you&apos;d see in the Symphony DevTools.
+                  This panel logs each transaction and each recomputed value. In your own app the Symphony DevTools show the same log.
                 </p>
               </div>
             )}

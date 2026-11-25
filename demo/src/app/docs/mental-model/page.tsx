@@ -1,3 +1,4 @@
+import { Footer } from "@/components/shared/Footer";
 import { Navigation } from "@/components/shared/Navigation";
 import Link from "next/link";
 
@@ -7,7 +8,7 @@ const concepts = [
     title: "Orchestration, not ownership",
     content: `Symphony State does not replace your existing stores. It sits between them.
 
-Your server cache (TanStack Query, SWR) stays. Your URL params stay. Your local component state stays. Your localStorage stays. Symphony State acts as the conductor — coordinating reads, writes, and conflict resolution across all of them.
+Your server cache (TanStack Query, SWR), your URL params, your component state and your localStorage all stay as they are. Symphony State acts as the conductor and coordinates reads, writes and conflict resolution between them.
 
 Each source adapter wraps an existing store with a uniform interface: get, set, subscribe. The conductor manages the flow.`,
     code: `// Each source remains independent
@@ -27,7 +28,7 @@ const conductor = createConductor({
   {
     id: "staged-commits",
     title: "Staged commits",
-    content: `All updates within a transaction are staged, not applied immediately. When the transaction ends, changes are committed in dependency order — derived sections recompute, subscribers are notified once.
+    content: `All updates within a transaction are staged, not applied immediately. When the transaction ends, changes are committed in dependency order. Derived sections recompute, and each subscriber is notified once.
 
 This prevents cascading re-renders and stale intermediate states. A single transaction can touch multiple sections, and the UI sees a single, consistent snapshot.`,
     code: `// All three changes commit as one wave
@@ -44,7 +45,7 @@ conductor.transaction(() => {
     title: "Dependency-driven flow",
     content: `Sections can depend on other sections. Derived sections are computed from their inputs. The conductor builds a dependency graph and topologically sorts it.
 
-When a source section changes, only its dependents are recomputed — and only if their inputs actually changed. This is deterministic and efficient.`,
+When a source section changes, only its dependents are recomputed, and only if their inputs actually changed.`,
     code: `defineDerivedSection({
   key: "filteredProducts",
   inputs: ["products", "filters"],
@@ -66,7 +67,7 @@ defineDerivedSection({
   {
     id: "reconciliation",
     title: "Reconciliation precedence",
-    content: `When multiple sources provide the same value — say, an optimistic UI update and a server response — who wins?
+    content: `When multiple sources provide the same value, say an optimistic UI update and a server response, which one wins?
 
 The OrchestratedAdapter resolves this deterministically:
 
@@ -95,7 +96,7 @@ You can override the default logic with a custom reconcile function for domain-s
 
 The orchestrator snapshot shows which source is currently driving the resolved value, the individual source values, their staleness, and their priority.
 
-This makes debugging trivial: you don't just see state — you see why it's that way.`,
+This makes debugging trivial: you see not only the state but also why it is that way.`,
     code: `// Conductor snapshot
 conductor.getSnapshot();
 // → { sections: { products: [...], filters: {...} },
@@ -121,7 +122,7 @@ export default function MentalModelPage() {
         <div className="mb-12">
           <h1 className="text-3xl font-bold text-text-primary">Mental Model</h1>
           <p className="mt-2 text-lg text-text-secondary">
-            Five concepts that explain how Symphony State works — and why.
+            Five ideas behind Symphony State, with the reasoning for each.
           </p>
         </div>
 
@@ -183,11 +184,12 @@ export default function MentalModelPage() {
               href="/playground"
               className="rounded-lg border border-border bg-surface-2 px-5 py-2.5 text-sm font-medium text-text-secondary hover:text-text-primary"
             >
-              Open Playground
+              Open the playground
             </Link>
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 }

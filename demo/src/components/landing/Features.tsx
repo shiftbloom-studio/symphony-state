@@ -7,17 +7,17 @@ const features = [
   {
     title: "Single-wave commits",
     description:
-      "Updates are staged, dependency-ordered, and committed atomically. No cascading re-renders or stale intermediate states.",
+      "Updates are staged, dependency-ordered, and committed atomically. Components never see a state that is only half updated.",
   },
   {
     title: "Observable state",
     description:
-      "Every value carries its provenance. The Score shows which source is driving, what was reconciled, and why.",
+      "Every value remembers where it came from. The DevTools panel shows which source won a conflict and why.",
   },
   {
     title: "Composable adapters",
     description:
-      "Atom, Zustand, Redux, TanStack Query, and URL params plug into the stores you already use. No migration required.",
+      "Atom, Zustand, Redux, TanStack Query, and URL params plug into the stores you already use. You don't have to migrate anything first.",
   },
   {
     title: "Explicit precedence",
@@ -34,14 +34,14 @@ const features = [
 export const Features = () => {
   return (
     <section className="border-b border-border bg-paper" aria-labelledby="principles-title">
-      <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-12 md:px-10 md:py-28 lg:px-14">
+      <div className="mx-auto grid max-w-[100rem] gap-12 px-6 py-20 md:grid-cols-12 md:px-10 md:py-28 lg:px-14 2xl:px-20">
         <div className="md:col-span-4">
-          <p className="brand-label text-root-red">Principles / 04</p>
+          <p className="brand-label text-root-red">Guarantees / 03</p>
           <h2
             id="principles-title"
             className="brand-display mt-5 text-[clamp(2.8rem,5vw,5.3rem)] font-semibold leading-[0.94] text-ink"
           >
-            Clear rules. Fewer surprises.
+            What you can rely on
           </h2>
         </div>
 
