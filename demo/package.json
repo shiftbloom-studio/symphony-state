@@ -11,7 +11,9 @@
     "build": "next build",
     "prestart": "npm run prepare:lib",
     "start": "next start --port 3030",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "deploy": "wrangler deploy",
+    "preview": "npm run build && wrangler dev"
   },
   "dependencies": {
     "@shiftbloom-studio/symphony-state": "file:..",
@@ -27,6 +29,7 @@
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.4.6",
     "tailwindcss": "^4.3.5",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "wrangler": "^4.168.0"
   }
 }
