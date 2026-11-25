@@ -8,7 +8,7 @@ const sources = [
 export const OrchestraVisual = () => {
   return (
     <section className="border-b border-border bg-paper-warm" aria-labelledby="architecture-title">
-      <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-12 md:px-10 md:py-28 lg:px-14">
+      <div className="mx-auto grid max-w-[100rem] gap-12 px-6 py-20 md:grid-cols-12 md:px-10 md:py-28 lg:px-14 2xl:px-20">
         <div className="md:col-span-4">
           <p className="brand-label text-root-red">Architecture / 01</p>
           <h2

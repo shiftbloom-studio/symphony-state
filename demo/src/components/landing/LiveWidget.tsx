@@ -172,7 +172,7 @@ export const LiveWidget = () => {
 
   return (
     <section className="border-b border-border bg-paper" aria-labelledby="live-demo-title">
-      <div className="mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-28 lg:px-14">
+      <div className="mx-auto max-w-[100rem] px-6 py-20 md:px-10 md:py-28 lg:px-14 2xl:px-20">
         <div className="mb-10 grid gap-5 md:grid-cols-12">
           <p className="brand-label text-root-red md:col-span-3">Live score / 03</p>
           <div className="md:col-span-8 md:col-start-5">

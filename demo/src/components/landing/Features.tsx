@@ -34,7 +34,7 @@ const features = [
 export const Features = () => {
   return (
     <section className="border-b border-border bg-paper" aria-labelledby="principles-title">
-      <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-12 md:px-10 md:py-28 lg:px-14">
+      <div className="mx-auto grid max-w-[100rem] gap-12 px-6 py-20 md:grid-cols-12 md:px-10 md:py-28 lg:px-14 2xl:px-20">
         <div className="md:col-span-4">
           <p className="brand-label text-root-red">Principles / 04</p>
           <h2

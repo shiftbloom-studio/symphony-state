@@ -14,7 +14,7 @@ export const Navigation = () => {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-paper/95 backdrop-blur-sm">
       <nav
-        className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-5 px-6 md:px-10 lg:px-14"
+        className="mx-auto flex h-16 max-w-[100rem] items-center justify-between gap-5 px-6 md:px-10 lg:px-14 2xl:px-20"
         aria-label="Primary navigation"
       >
         <Link href="/" className="flex min-w-0 items-baseline gap-3" aria-label="Symphony State home">

@@ -29,7 +29,7 @@ export const InventoryDashboard = () => {
       <div className="flex h-[calc(100vh-3.5rem)]">
         {/* Main content */}
         <div className="flex-1 overflow-y-auto">
-          <div className="mx-auto max-w-6xl space-y-4 p-6">
+          <div className="mx-auto max-w-[100rem] space-y-4 p-6 md:px-10 lg:px-14 2xl:px-20">
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-xl font-bold text-text-primary">
