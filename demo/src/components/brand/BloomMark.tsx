@@ -3,53 +3,36 @@ import type { SVGProps } from "react";
 type BloomMarkProps = Omit<SVGProps<SVGSVGElement>, "title"> & {
   idPrefix?: string;
   title?: string;
+  /** Flat Bloom Red, for sizes below 32px. */
+  solid?: boolean;
 };
 
-type Ring = {
-  petals: number;
-  length: number;
-  width: number;
-  fill: "outer" | "middle" | "inner" | "heart";
-  offset: number;
-};
-
-const rings: Ring[] = [
-  { petals: 10, length: 88, width: 36, fill: "outer", offset: 0 },
-  { petals: 10, length: 68, width: 31, fill: "middle", offset: 18 },
-  { petals: 8, length: 48, width: 25, fill: "inner", offset: 0 },
-  { petals: 6, length: 27, width: 17, fill: "heart", offset: 0 },
+// The shiftbloom bloom, exactly as shiftbloom.studio draws it (brand book v2,
+// "The Mark"): four interleaved petal rings (10 · 10 · 8 · 6) plus the seed.
+const rings = [
+  { r: 100, petals: 10, w: 32, l: 90, root: "#D8163F", tip: "#FF2E52", offset: 0 },
+  { r: 74, petals: 10, w: 25.16, l: 66.6, root: "#FF2E52", tip: "#FF7E9E", offset: 18 },
+  { r: 50, petals: 8, w: 19, l: 45, root: "#FF7E9E", tip: "#FFC2D3", offset: 40.5 },
+  { r: 27, petals: 6, w: 12.96, l: 24.3, root: "#FFB4CA", tip: "#FFDCE7", offset: 70.5 },
 ];
 
-const petalPath = (length: number, width: number) => {
-  const tipY = 100 - length;
-  const shoulderY = 100 - length * 0.58;
-  const halfWidth = width / 2;
-
-  return [
-    "M 100 100",
-    `C ${100 - halfWidth * 0.9} ${100 - length * 0.24}, ${100 - halfWidth} ${shoulderY}, 100 ${tipY}`,
-    `C ${100 + halfWidth} ${shoulderY}, ${100 + halfWidth * 0.9} ${100 - length * 0.24}, 100 100`,
-    "Z",
-  ].join(" ");
-};
+const n = (v: number) => Number(v.toFixed(2));
+const petalPath = (w: number, l: number) =>
+  `M 0,0 C ${w},0 ${w},${-n(0.55 * l)} 0,${-l} C ${-w},${-n(0.55 * l)} ${-w},0 0,0 Z`;
 
 export const BloomMark = ({
   className,
-  idPrefix = "bloom",
+  idPrefix = "sb-bloom-ring",
   title,
+  solid = false,
   ...props
 }: BloomMarkProps) => {
   const decorative = !title;
-  const gradientIds = {
-    outer: `${idPrefix}-outer`,
-    middle: `${idPrefix}-middle`,
-    inner: `${idPrefix}-inner`,
-    heart: `${idPrefix}-heart`,
-  };
 
   return (
     <svg
       viewBox="0 0 200 200"
+      xmlns="http://www.w3.org/2000/svg"
       className={className}
       aria-hidden={decorative ? true : undefined}
       aria-label={title}
@@ -57,38 +40,38 @@ export const BloomMark = ({
       {...props}
     >
       {title ? <title>{title}</title> : null}
-      <defs>
-        <linearGradient id={gradientIds.outer} x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0%" stopColor="#C81040" />
-          <stop offset="54%" stopColor="#FF2E52" />
-          <stop offset="100%" stopColor="#FF8FAB" />
-        </linearGradient>
-        <linearGradient id={gradientIds.middle} x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0%" stopColor="#FF2E52" />
-          <stop offset="100%" stopColor="#FF8FAB" />
-        </linearGradient>
-        <linearGradient id={gradientIds.inner} x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0%" stopColor="#FF7E9E" />
-          <stop offset="100%" stopColor="#FFC2D3" />
-        </linearGradient>
-        <linearGradient id={gradientIds.heart} x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0%" stopColor="#FFB4CA" />
-          <stop offset="100%" stopColor="#FFDCE7" />
-        </linearGradient>
-      </defs>
-
-      {rings.map((ring, ringIndex) => (
-        <g key={`${ring.petals}-${ring.length}`} opacity={ringIndex === 0 ? 0.92 : 0.9}>
-          {Array.from({ length: ring.petals }, (_, petalIndex) => (
-            <path
-              key={petalIndex}
-              d={petalPath(ring.length, ring.width)}
-              fill={`url(#${gradientIds[ring.fill]})`}
-              transform={`rotate(${ring.offset + (360 / ring.petals) * petalIndex} 100 100)`}
-            />
+      {solid ? null : (
+        <defs>
+          {rings.map((ring) => (
+            <linearGradient
+              key={ring.r}
+              id={`${idPrefix}-${ring.r}`}
+              gradientUnits="userSpaceOnUse"
+              x1={0}
+              y1={0}
+              x2={0}
+              y2={-ring.l}
+            >
+              <stop offset="0%" stopColor={ring.root} />
+              <stop offset="100%" stopColor={ring.tip} />
+            </linearGradient>
           ))}
-        </g>
-      ))}
+        </defs>
+      )}
+
+      {rings.map((ring) =>
+        Array.from({ length: ring.petals }, (_, p) => {
+          const angle = n(ring.offset + (360 / ring.petals) * p);
+          return (
+            <path
+              key={`${ring.r}-${angle}`}
+              d={petalPath(ring.w, ring.l)}
+              fill={solid ? "#FF2E52" : `url(#${idPrefix}-${ring.r})`}
+              transform={`translate(100 100) rotate(${angle}) translate(0 ${-n(ring.r - ring.l)})`}
+            />
+          );
+        }),
+      )}
 
       <circle cx="100" cy="100" r="7" fill="#FF2E52" />
     </svg>
