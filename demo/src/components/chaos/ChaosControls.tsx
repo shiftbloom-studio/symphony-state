@@ -27,7 +27,7 @@ export const ChaosControls = ({ conductor }: { conductor: Conductor }) => {
       <div className="flex items-center justify-between border-b border-border px-4 py-3">
         <div>
           <h3 className="text-xs font-semibold text-text-primary">
-            Simulate Problems
+            Simulate problems
           </h3>
           <p className="text-[10px] text-text-muted mt-0.5">
             Real users deal with slow networks and conflicting data. Try it.
@@ -37,7 +37,7 @@ export const ChaosControls = ({ conductor }: { conductor: Conductor }) => {
           onClick={() => simulateServerFetch(conductor)}
           className="rounded-md bg-source-server/10 px-2.5 py-1 text-[11px] font-medium text-source-server hover:bg-source-server/20"
         >
-          Reload Data
+          Reload data
         </button>
       </div>
 
@@ -45,7 +45,7 @@ export const ChaosControls = ({ conductor }: { conductor: Conductor }) => {
         {/* Network delay */}
         <div>
           <div className="flex items-center justify-between mb-1">
-            <label className="text-xs font-medium text-text-primary">Slow Network</label>
+            <label className="text-xs font-medium text-text-primary">Slow network</label>
             <span className="font-mono text-[11px] text-text-secondary">
               {chaos.networkDelay === 0 ? "Off" : `${chaos.networkDelay / 1000}s delay`}
             </span>
@@ -67,9 +67,9 @@ export const ChaosControls = ({ conductor }: { conductor: Conductor }) => {
         {/* Server conflicts */}
         <div className="flex items-center justify-between">
           <div className="flex-1 mr-3">
-            <label className="text-xs font-medium text-text-primary">Server Conflicts</label>
+            <label className="text-xs font-medium text-text-primary">Server conflicts</label>
             <p className="text-[10px] text-text-muted mt-0.5">
-              After you edit stock, the server automatically responds with different data —
+              After you edit stock, the server automatically responds with different data,
               simulating another user editing at the same time.
             </p>
           </div>

@@ -33,7 +33,7 @@ export const InventoryDashboard = () => {
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-xl font-bold text-text-primary">
-                  Inventory Control Center
+                  Inventory control center
                 </h1>
                 <p className="text-sm text-text-secondary">
                   Real-time dashboard orchestrated by Symphony State

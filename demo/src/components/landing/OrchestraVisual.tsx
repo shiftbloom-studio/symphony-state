@@ -15,10 +15,10 @@ export const OrchestraVisual = () => {
             id="architecture-title"
             className="brand-display mt-5 text-[clamp(2.8rem,5vw,5.3rem)] font-semibold leading-[0.94] text-ink"
           >
-            Four sources. One score.
+            Your stores stay where they are.
           </h2>
           <p className="mt-6 max-w-sm text-base leading-7 text-text-secondary">
-            Keep each store independent. Symphony State stages their updates, resolves dependencies, and commits one consistent view.
+            You keep TanStack Query, your component state and your URL params. Symphony State only sits between them: it collects their updates, applies them in dependency order and hands React one consistent snapshot.
           </p>
         </div>
 
@@ -38,23 +38,23 @@ export const OrchestraVisual = () => {
               ))}
             </ol>
 
-            <div className="flex min-h-72 flex-col justify-between bg-root-red p-6 text-paper sm:min-h-full">
+            <div className="flex min-h-72 flex-col justify-between bg-ink p-6 text-paper sm:min-h-full">
               <p className="brand-label">Conductor</p>
               <div>
-                <span className="mb-5 block h-3 w-3 rounded-full bg-paper" aria-hidden="true" />
+                <span className="mb-5 block h-3 w-3 rounded-full bg-bloom-red" aria-hidden="true" />
                 <p className="brand-display text-4xl font-semibold leading-none">Symphony State</p>
                 <p className="mt-4 text-sm leading-6 text-paper">
-                  Stage → reconcile → derive → commit
+                  Stage, reconcile, derive, commit
                 </p>
               </div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-paper">
-                Deterministic / observable
+              <p className="font-mono text-xs text-paper/70">
+                Given the same updates, it commits the same result.
               </p>
             </div>
           </div>
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-ink/20 py-4 font-mono text-[10px] uppercase tracking-[0.14em] text-text-muted">
-            <span>Independent inputs</span>
-            <span className="text-root-red">Single-wave commit → UI</span>
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-ink/20 py-4 font-mono text-xs text-text-muted">
+            <span>Four independent inputs</span>
+            <span className="text-root-red">One commit per change</span>
           </div>
         </div>
       </div>

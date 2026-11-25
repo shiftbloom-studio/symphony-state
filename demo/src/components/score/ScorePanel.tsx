@@ -14,11 +14,11 @@ type Tab = "state" | "changes" | "conflicts";
 
 const tabConfig: Record<Tab, { label: string; hint: string }> = {
   state: {
-    label: "Current State",
+    label: "Current state",
     hint: "Shows the current value of each state section and where it comes from."
   },
   changes: {
-    label: "What Changed",
+    label: "What changed",
     hint: "Every time you do something, a transaction commits changes to one or more sections. This is the log."
   },
   conflicts: {
@@ -137,7 +137,7 @@ function ConflictsTab() {
         No conflicts yet.
         <br />
         <span className="text-text-muted/60">
-          Try editing a stock number with &quot;Server Conflicts&quot; enabled in Simulate Problems.
+          Try editing a stock number with &quot;Server conflicts&quot; enabled in Simulate problems.
         </span>
       </div>
     );

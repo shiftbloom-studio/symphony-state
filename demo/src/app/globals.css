@@ -149,21 +149,46 @@ textarea {
   border-radius: 999px;
   color: var(--color-paper);
   display: inline-flex;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  gap: 0.5rem;
   justify-content: center;
-  letter-spacing: 0.15em;
   min-height: 44px;
-  padding: 0.85rem 1.5rem;
-  text-transform: uppercase;
-  transition: background-color 180ms var(--settle-ease), border-color 180ms var(--settle-ease), transform 180ms var(--settle-ease);
+  padding: 0.65rem 1.4rem;
+  transition: background-color 180ms var(--settle-ease), border-color 180ms var(--settle-ease), color 180ms var(--settle-ease);
 }
 
 .brand-button:hover {
   background: var(--color-ink);
   border-color: var(--color-ink);
-  transform: translateY(-1px);
+}
+
+.brand-button:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+
+/* Secondary action: outlined pill in ink. */
+.brand-button-quiet {
+  align-items: center;
+  background: var(--color-paper);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 22%, transparent);
+  border-radius: 999px;
+  color: var(--color-ink);
+  display: inline-flex;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.65rem 1.2rem;
+  transition: border-color 180ms var(--settle-ease), color 180ms var(--settle-ease);
+}
+
+.brand-button-quiet:hover {
+  border-color: var(--color-root-red);
+  color: var(--color-root-red);
 }
 
 .brand-link {
@@ -211,6 +236,17 @@ textarea {
 
 .animate-fade-in {
   animation: fade-in 300ms var(--bloom-ease);
+}
+
+/* Sprinkles stay in the page margins and are hidden on small screens. */
+.sprinkle {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .sprinkle {
+    display: block;
+  }
 }
 
 .bloom-unfurl {
