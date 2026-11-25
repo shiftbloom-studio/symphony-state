@@ -15,18 +15,18 @@
   },
   "dependencies": {
     "@shiftbloom-studio/symphony-state": "file:..",
-    "next": "^16.3.4",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5"
+    "next": "^16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.2.2",
-    "@types/node": "^25.6.0",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "eslint": "^9.39.4",
-    "eslint-config-next": "^16.3.4",
-    "tailwindcss": "^4.2.2",
-    "typescript": "^6.0.2"
+    "@tailwindcss/postcss": "^4.3.5",
+    "@types/node": "^26.6.10",
+    "@types/react": "^19.3.3",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.4.6",
+    "tailwindcss": "^4.3.5",
+    "typescript": "^6.0.3"
   }
 }
