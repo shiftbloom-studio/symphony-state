@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/@changesets/config/schema.json",
-  "changelog": ["@changesets/changelog-git", { "repo": "your-org/your-repo" }],
+  "changelog": ["@changesets/changelog-git", { "repo": "shiftbloom-studio/symphony-state" }],
   "commit": false,
   "fixed": [],
   "linked": [],

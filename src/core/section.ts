@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
 import type { DerivedSectionDefinition, PersistConfig, SectionDefinition } from "./types";
 
 export const defineSection = <T>(definition: SectionDefinition<T>) => definition;
