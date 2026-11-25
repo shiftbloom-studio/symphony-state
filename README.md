@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./docs/assets/symphony-state-banner.svg" alt="Symphony State — Every state source, in concert." width="1200" />
+  <img src="./docs/assets/symphony-state-banner.svg" alt="Symphony State - Every state source, in concert." width="1200" />
 </p>
 
 <h1 align="center">Symphony State</h1>

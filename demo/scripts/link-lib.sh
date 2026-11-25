@@ -1,8 +1,8 @@
 #!/bin/bash
 # Ensure symphony-state dist files are available for the demo app.
 # Handles two scenarios:
-#   1. Local dev: npm creates a symlink via file:.. — replace it with a real copy (Turbopack can't follow external symlinks)
-#   2. CI / Vercel: dist/ doesn't exist because it's gitignored — build the library first, then copy
+#   1. Local dev: npm creates a symlink via file:.. - replace it with a real copy (Turbopack can't follow external symlinks)
+#   2. CI / Vercel: dist/ doesn't exist because it's gitignored - build the library first, then copy
 set -e
 
 LIB_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -24,7 +24,7 @@ if [ -L "$PKG_DIR" ]; then
   cp "$REAL_PATH/package.json" "$PKG_DIR/package.json"
   echo "✓ Replaced symlink with real copy"
 elif [ ! -d "$PKG_DIR/dist" ]; then
-  # No symlink and no dist — direct copy (CI where npm didn't create a symlink)
+  # No symlink and no dist - direct copy (CI where npm didn't create a symlink)
   mkdir -p "$PKG_DIR"
   cp -r "$LIB_ROOT/dist" "$PKG_DIR/dist"
   cp "$LIB_ROOT/package.json" "$PKG_DIR/package.json"

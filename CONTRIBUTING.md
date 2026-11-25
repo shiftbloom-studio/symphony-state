@@ -6,7 +6,7 @@ You do not need to be good. Finish the small thing. English or German is fine.
 
 Pick a ticket labeled `good first issue`, leave a comment, and open a focused PR. If you want a pointer first, start here: https://github.com/shiftbloom-studio/symphony-state/issues/49
 
-Clone, install, then run the tests (or the demo — either is enough for a first evening):
+Clone, install, then run the tests (or the demo - either is enough for a first evening):
 
 ```bash
 git clone https://github.com/shiftbloom-studio/symphony-state.git
