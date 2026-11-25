@@ -1,6 +1,6 @@
 {
   "name": "@shiftbloom-studio/symphony-state",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Orchestrate multiple state sources without a monolithic global store.",
   "keywords": [
     "react",
