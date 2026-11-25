@@ -61,8 +61,8 @@ export default function Home() {
             Symphony State · Apache-2.0
           </p>
           <div className="flex gap-5 md:col-span-3 md:justify-end">
-            <Link href="/legal#impressum" className="brand-link">Impressum</Link>
-            <Link href="/legal#datenschutz" className="brand-link">Datenschutz</Link>
+            <Link href="/imprint" className="brand-link">Imprint</Link>
+            <Link href="/privacy" className="brand-link">Privacy</Link>
           </div>
         </div>
       </footer>
