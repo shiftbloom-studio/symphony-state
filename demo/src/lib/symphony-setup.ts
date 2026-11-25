@@ -225,7 +225,7 @@ export const simulateServerFetch = async (
       type: "reconciliation",
       label: "Fetch blocked (offline)",
       sections: ["products"],
-      detail: "Network is offline — using cached data",
+      detail: "Network is offline - using cached data",
     });
     return;
   }
@@ -240,7 +240,7 @@ export const simulateServerFetch = async (
   const delay = chaos.networkDelay || 200;
   await new Promise((r) => setTimeout(r, delay));
 
-  // Re-check after the await — conductor may have been destroyed during the delay
+  // Re-check after the await - conductor may have been destroyed during the delay
   if (!_conductor || _conductor !== conductor) return;
 
   const serverProducts = overrideProducts ?? [...INITIAL_PRODUCTS].map((p) => ({
@@ -256,7 +256,7 @@ export const simulateServerFetch = async (
       conductor.getSection<Product[]>("products").set(serverProducts);
     }, "server-fetch-complete");
   } catch {
-    // Conductor destroyed during fetch — safe to ignore
+    // Conductor destroyed during fetch - safe to ignore
     return;
   }
 
@@ -266,7 +266,7 @@ export const simulateServerFetch = async (
     sections: ["products", "filteredProducts", "summary"],
     driver: "server",
     detail: chaos.staleResponses
-      ? "Server returned modified stock values — reconciling with optimistic"
+      ? "Server returned modified stock values - reconciling with optimistic"
       : `${serverProducts.length} products loaded`,
   });
 };
