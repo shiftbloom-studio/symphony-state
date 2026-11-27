@@ -1,10 +1,13 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 import { ImageResponse } from "next/og";
+import { bloomSvgString } from "@/components/brand/BloomMark";
 
 export const dynamic = "force-static";
 export const alt = "Symphony State, a React library for orchestrating state sources";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+
+const BLOOM = `data:image/svg+xml;base64,${Buffer.from(bloomSvgString()).toString("base64")}`;
 
 const SOURCES = ["TanStack Query", "Zustand", "Redux", "URL params", "localStorage"];
 
@@ -19,12 +22,13 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px 80px",
-          background: "#FFFFFF",
+          background: "#F6F1EE",
           color: "#1A1216",
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", fontSize: 26, letterSpacing: 4, color: "#C81040" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 20, fontSize: 26, letterSpacing: 4, color: "#C81040" }}>
+          <img src={BLOOM} width={64} height={64} alt="" />
           SYMPHONY STATE / OPEN SOURCE
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
