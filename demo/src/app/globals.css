@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* Self-hosted fonts. Clash Display & General Sans: Fontshare (free for commercial
    use, fontshare.com). JetBrains Mono: SIL OFL 1.1, via Fontsource 5.3.0.
    WOFF2 files live in /public/fonts. */
@@ -58,8 +60,6 @@
   font-style: normal;
   font-display: swap;
 }
-
-@import "tailwindcss";
 
 @theme {
   /* shiftbloom studio - Brand Book v2.0 */

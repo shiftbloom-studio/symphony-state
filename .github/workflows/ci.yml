@@ -31,7 +31,7 @@ jobs:
           cache: npm
 
       - name: Install
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Lint
         run: npm run lint
@@ -61,7 +61,11 @@ jobs:
             demo/package-lock.json
 
       - name: Install
-        run: npm ci
+        run: npm ci --ignore-scripts
+        working-directory: demo
+
+      - name: Prepare library
+        run: npm run prepare:lib
         working-directory: demo
 
       - name: Lint
