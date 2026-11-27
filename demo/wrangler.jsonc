@@ -5,6 +5,13 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "symphony-state",
   "compatibility_date": "2026-11-01",
+  // No request logs (see the privacy page), but real-time Issues stay on so failures raise an alert.
+  "observability": {
+    "enabled": true,
+    "logs": { "enabled": false },
+    "traces": { "enabled": false },
+    "issues": { "enabled": true }
+  },
   "workers_dev": false,
   "preview_urls": false,
   "assets": {
