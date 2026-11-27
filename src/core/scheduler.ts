@@ -6,7 +6,7 @@ const scheduleMicrotask = (flush: () => void) => {
     queueMicrotask(flush);
     return;
   }
-  Promise.resolve().then(flush);
+  void Promise.resolve().then(flush);
 };
 
 export const createScheduler = (scheduler?: Scheduler) => {

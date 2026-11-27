@@ -1,11 +1,15 @@
 "use client";
 
-import { useCallback, useSyncExternalStore } from "react";
+import { useCallback, useId, useSyncExternalStore } from "react";
 import type { Conductor } from "@shiftbloom-studio/symphony-state";
 import type { ChaosConfig } from "@/lib/types";
 import { simulateServerFetch } from "@/lib/symphony-setup";
 
 export const ChaosControls = ({ conductor }: { conductor: Conductor }) => {
+  const controlId = useId();
+  const delayId = `${controlId}-delay`;
+  const conflictsId = `${controlId}-conflicts`;
+  const offlineId = `${controlId}-offline`;
   const getSnapshot = useCallback(
     () => conductor.getSectionValue<ChaosConfig>("chaos"),
     [conductor]
@@ -45,7 +49,9 @@ export const ChaosControls = ({ conductor }: { conductor: Conductor }) => {
         {/* Network delay */}
         <div>
           <div className="flex items-center justify-between mb-1">
-            <label className="text-xs font-medium text-text-primary">Slow network</label>
+            <label htmlFor={delayId} className="text-xs font-medium text-text-primary">
+              Slow network
+            </label>
             <span className="font-mono text-[11px] text-text-secondary">
               {chaos.networkDelay === 0 ? "Off" : `${chaos.networkDelay / 1000}s delay`}
             </span>
@@ -54,6 +60,7 @@ export const ChaosControls = ({ conductor }: { conductor: Conductor }) => {
             Adds a delay before the server responds. Makes optimistic updates visible.
           </p>
           <input
+            id={delayId}
             type="range"
             min={0}
             max={5000}
@@ -67,13 +74,16 @@ export const ChaosControls = ({ conductor }: { conductor: Conductor }) => {
         {/* Server conflicts */}
         <div className="flex items-center justify-between">
           <div className="flex-1 mr-3">
-            <label className="text-xs font-medium text-text-primary">Server conflicts</label>
+            <label htmlFor={conflictsId} className="text-xs font-medium text-text-primary">
+              Server conflicts
+            </label>
             <p className="text-[10px] text-text-muted mt-0.5">
               After you edit stock, the server automatically responds with different data,
               simulating another user editing at the same time.
             </p>
           </div>
           <button
+            id={conflictsId}
             onClick={() => update({ conflictMode: !chaos.conflictMode })}
             className={`relative h-5 w-9 shrink-0 rounded-full transition-colors ${
               chaos.conflictMode ? "bg-accent" : "bg-border"
@@ -90,12 +100,15 @@ export const ChaosControls = ({ conductor }: { conductor: Conductor }) => {
         {/* Offline */}
         <div className="flex items-center justify-between">
           <div className="flex-1 mr-3">
-            <label className="text-xs font-medium text-text-primary">Offline</label>
+            <label htmlFor={offlineId} className="text-xs font-medium text-text-primary">
+              Offline
+            </label>
             <p className="text-[10px] text-text-muted mt-0.5">
               Blocks server requests. Filters & UI still work from local sources.
             </p>
           </div>
           <button
+            id={offlineId}
             onClick={() => update({ offline: !chaos.offline })}
             className={`relative h-5 w-9 shrink-0 rounded-full transition-colors ${
               chaos.offline ? "bg-accent" : "bg-border"

@@ -48,10 +48,10 @@ export const InventoryTable = ({ conductor }: { conductor: Conductor }) => {
     setEditingStock({ id: product.id, value: String(product.stock) });
   };
 
-  const handleStockSave = async () => {
+  const handleStockSave = () => {
     if (!editingStock) return;
-    const newStock = parseInt(editingStock.value, 10);
-    if (isNaN(newStock) || newStock < 0) return;
+    const newStock = Number.parseInt(editingStock.value, 10);
+    if (Number.isNaN(newStock) || newStock < 0) return;
 
     // Optimistic update
     optimisticStockUpdate(conductor, editingStock.id, newStock);
@@ -61,7 +61,7 @@ export const InventoryTable = ({ conductor }: { conductor: Conductor }) => {
     const chaos = conductor.getSectionValue<{ conflictMode: boolean; networkDelay: number }>("chaos");
     if (chaos.conflictMode) {
       setTimeout(() => {
-        simulateServerFetch(conductor);
+        void simulateServerFetch(conductor);
       }, chaos.networkDelay || 2000);
     }
   };
