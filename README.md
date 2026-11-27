@@ -12,6 +12,8 @@
 
 <p align="center"><strong>Every state source, in concert.</strong></p>
 
+<p align="center"><a href="https://state.shiftbloom.studio">Live demo and docs</a></p>
+
 Symphony State is a lightweight orchestration layer for server caches, UI state, URL params, and browser persistence. It keeps your existing stores independent, then composes their updates into predictable flows with atomic transactions, derived sections, and observable reconciliation.
 
 ---

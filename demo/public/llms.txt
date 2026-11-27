@@ -39,7 +39,7 @@ Several updates in one atomic step: `conductor.transaction(() => { ... }, "login
 
 ## Pages
 
-- [Home and live demo](https://symphony.shiftbloom.studio/): what the library does, with a widget that shows which source drives the UI.
-- [Mental model](https://symphony.shiftbloom.studio/docs/mental-model): orchestration, staged commits, dependency flow, reconciliation and observability, each with code.
-- [State Lab](https://symphony.shiftbloom.studio/playground): trigger single sources, add delay and stale responses, watch reconciliation.
-- [Inventory demo](https://symphony.shiftbloom.studio/demo/inventory): a dashboard with server data, optimistic stock edits, filters and saved preferences in one conductor.
+- [Home and live demo](https://state.shiftbloom.studio/): what the library does, with a widget that shows which source drives the UI.
+- [Mental model](https://state.shiftbloom.studio/docs/mental-model): orchestration, staged commits, dependency flow, reconciliation and observability, each with code.
+- [State Lab](https://state.shiftbloom.studio/playground): trigger single sources, add delay and stale responses, watch reconciliation.
+- [Inventory demo](https://state.shiftbloom.studio/demo/inventory): a dashboard with server data, optimistic stock edits, filters and saved preferences in one conductor.

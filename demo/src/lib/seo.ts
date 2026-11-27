@@ -75,7 +75,7 @@ export function structuredData() {
 }
 
 function resolveSiteUrl() {
-  const fallback = "https://symphony.shiftbloom.studio";
+  const fallback = "https://state.shiftbloom.studio";
   const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim();
   if (!raw) return new URL(fallback);
   try {
